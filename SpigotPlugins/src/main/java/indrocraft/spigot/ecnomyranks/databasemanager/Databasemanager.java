@@ -24,7 +24,7 @@ public class Databasemanager{
         return config;
     }
 
-    public void connectDatabase() {
+    public DataSource connectDatabase() {
 
         FileConfiguration configFile = getFileConfig();//loads config file
 
@@ -41,7 +41,7 @@ public class Databasemanager{
         dataSource.setMaxPoolSize(8); // Default value is 8. 8 connections should be more then enough for most plugins.
 
 
-        initMySQLDataSource()
+        return dataSource;
 
     }
     private void testDataSource(DataSource dataSource) throws SQLException {
@@ -54,12 +54,13 @@ public class Databasemanager{
 
 
     }
-    private DataSource initMySQLDataSource() throws SQLException {
-        MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
-        // set credentials
 
-        // Test connection
-        testDataSource(dataSource);
-        return dataSource;
+    public Jdbi connectGetJDbi(){
+        DataSource ds = connectDatabase();
+        Jdbi jdbi = Jdbi.create(ds);
+        return jdbi;
     }
+
+    
+
 }
