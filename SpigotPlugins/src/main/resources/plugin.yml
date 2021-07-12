@@ -1,4 +1,4 @@
-name: Ecnomy Ranks
+name: EconomyRanks
 version: ${project.version}
 main: indrocraft.spigot.ecnomyranks.Main
 api-version: 1.17
