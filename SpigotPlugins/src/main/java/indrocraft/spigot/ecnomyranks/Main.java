@@ -1,5 +1,6 @@
 package indrocraft.spigot.ecnomyranks;
 
+import indrocraft.spigot.ecnomyranks.commands.Complaints;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
@@ -9,7 +10,7 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         getLogger().info("SpigotPlugin.Ranks-Economy Enabled");
 
-
+        getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
 
     }
 
