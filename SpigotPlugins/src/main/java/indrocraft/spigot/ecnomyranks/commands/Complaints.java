@@ -1,6 +1,7 @@
 package indrocraft.spigot.ecnomyranks.commands;
 
 import indrocraft.spigot.ecnomyranks.Main;
+import indrocraft.spigot.ecnomyranks.databasemanager.FileWrite;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
