@@ -1,1 +1,11 @@
+complaints_save_location: \complaints\<<<<<<< HEAD
 complaints_save_location: \complaints\
+=======
+database:
+  host: localhost # host of your database
+  port: 3306 # default port for MariaDB and MySQL
+  database: db # name of your database. A database server can contain multiple databases
+  user: username
+  password: passy
+
+>>>>>>> fc9708acc0676334c7e6df9b5ce79dc0c1694858

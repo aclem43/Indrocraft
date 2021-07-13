@@ -12,6 +12,7 @@ public final class Main extends JavaPlugin {
 
         getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
 
+
     }
 
     @Override
