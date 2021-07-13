@@ -61,6 +61,8 @@ public class Databasemanager{
         return jdbi;
     }
 
-    
+    public void createTableDb(){
+
+    }
 
 }
