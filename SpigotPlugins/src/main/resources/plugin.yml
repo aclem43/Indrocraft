@@ -6,3 +6,6 @@ commands:
   Complaints:
     usage: /<command>
     description: allows peeps to complain
+  Warn:
+    usage: /<command>
+    description: warns a player

@@ -1,6 +1,7 @@
-complaints_save_location: \complaints\<<<<<<< HEAD
-complaints_save_location: \complaints\
-=======
+
+complaintssavelocation: \complaints\
+WarnSaveLocation: \warn\
+
 database:
   host: localhost # host of your database
   port: 3306 # default port for MariaDB and MySQL
@@ -8,4 +9,3 @@ database:
   user: username
   password: passy
 
->>>>>>> fc9708acc0676334c7e6df9b5ce79dc0c1694858

@@ -1,13 +1,16 @@
 package indrocraft.spigot.ecnomyranks.commands;
 
 import indrocraft.spigot.ecnomyranks.Main;
-import indrocraft.spigot.ecnomyranks.databasemanager.FileWrite;
+import indrocraft.spigot.ecnomyranks.databasemanager.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+
+import static indrocraft.spigot.ecnomyranks.databasemanager.Databasemanager.getFileConfig;
 
 public class Complaints implements CommandExecutor {
     //this is so that i can message console:
@@ -33,7 +36,11 @@ public class Complaints implements CommandExecutor {
         }
         player.sendMessage("final message is: " + ChatColor.BLUE + "" + msg);
         //sends message to admin
+        FileConfiguration configFile = getFileConfig();
+        String loc = configFile.getString("complaintssavelocation");
         Player admin1 = Bukkit.getPlayer("OMEN44");
+        String loc2 = loc + "complaint" + player.getName() + ".txt";
+        FileManager.filewrite(loc2, msg);
         admin1.sendMessage("Sup, some one said dis: " + msg);
 
         return true;
