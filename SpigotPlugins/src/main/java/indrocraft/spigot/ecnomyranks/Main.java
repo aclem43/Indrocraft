@@ -1,6 +1,7 @@
 package indrocraft.spigot.ecnomyranks;
 
 import indrocraft.spigot.ecnomyranks.commands.Complaints;
+import indrocraft.spigot.ecnomyranks.commands.SetRank;
 import indrocraft.spigot.ecnomyranks.commands.Warn;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,7 +20,7 @@ public final class Main extends JavaPlugin {
 
         getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
         getServer().getPluginCommand("Warn").setExecutor(new Warn());
-
+        getServer().getPluginCommand("SetRank").setExecutor(new SetRank());
     }
 
     @Override

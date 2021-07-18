@@ -43,7 +43,7 @@ public class Warn implements CommandExecutor {
 
         String msg = player.getName() + " Warned: " + args[0] + "\n" + args[0] + " UUID " + traget.getUniqueId() + "\n";
 
-        FileConfiguration configFile = getFileConfig();
+        FileConfiguration configFile = getFileConfig("config.yml");
         String locaction = configFile.getString("WarnSaveLocation");
         String fileName = locaction + "Warned " + args[0] + ".txt";
         FileManager.filewrite(fileName, msg);
