@@ -2,3 +2,10 @@ name: EconomyRanks
 version: ${project.version}
 main: indrocraft.spigot.ecnomyranks.Main
 api-version: 1.17
+commands:
+  Complaints:
+    usage: /<command>
+    description: allows peeps to complain
+  Warn:
+    usage: /<command>
+    description: warns a player
