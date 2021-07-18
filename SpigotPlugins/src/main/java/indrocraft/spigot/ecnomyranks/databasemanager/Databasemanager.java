@@ -16,14 +16,14 @@ import javax.sql.DataSource;
 public class Databasemanager{
 
     public static FileConfiguration getFileConfig() {
-        File configFile = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/plugins/aclem43/config.yml"); // First we
+        File configFile = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/plugins/EconomyRanks/config.yml"); // First we
         // will load
         // the file.
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile); // Now we will load the file into a
         // FileConfiguration.
         return config;
     }
-
+/*
     public DataSource connectDatabase() {
 
         FileConfiguration configFile = getFileConfig();//loads config file
@@ -64,5 +64,5 @@ public class Databasemanager{
     public void createTableDb(){
 
     }
-
+*/
 }
