@@ -18,7 +18,6 @@ public class Warn implements CommandExecutor {
             sender.sendMessage("must be a player to warn a player");
             return true;
         }
-
         if (args.length == 0) {
             sender.sendMessage(ChatColor.RED + "You need to input a players name!");
             return true;
@@ -32,14 +31,23 @@ public class Warn implements CommandExecutor {
             return true;
         }
 
+        String comp = "";
+        for (int i = 0; i < args.length; i++) {
+            comp += " " + args[i];
+        }
+
+        String s1 = comp.substring(comp.indexOf("=")+1);
+        s1.trim();
+
         player.sendMessage("You have warned: " + args[0]);
 
-        String msg = player.getName() + " Warned: " + args[0] + "     " + args[0] + " UUID " + traget.getUniqueId();
+        String msg = player.getName() + " Warned: " + args[0] + "\n" + args[0] + " UUID " + traget.getUniqueId() + "\n";
 
         FileConfiguration configFile = getFileConfig();
         String locaction = configFile.getString("WarnSaveLocation");
         String fileName = locaction + "Warned " + args[0] + ".txt";
         FileManager.filewrite(fileName, msg);
+
 
         return true;
     }

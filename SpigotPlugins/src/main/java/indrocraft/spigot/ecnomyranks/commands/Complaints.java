@@ -27,20 +27,37 @@ public class Complaints implements CommandExecutor {
             main.getLogger().info("Must be a player to use this command!");
             return true;
         }
+
+        if (args.length == 0) {
+            sender.sendMessage(ChatColor.RED + "You must enter a players name then write your complaint!");
+            return true;
+        }
+
         //casts player
         Player player = (Player) sender;
         //puts the the args into a string
         String msg = "";
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 1; i < args.length; i++) {
             msg += " " + args[i];
         }
-        player.sendMessage("final message is: " + ChatColor.BLUE + "" + msg);
+
+        if (msg == "") {
+            player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <PlayerName> <complaint>");
+            return true;
+        }
+
+        Player targ = Bukkit.getPlayer(args[0]);
+        if (!(targ instanceof Player)) {
+            player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <PlayerName> <complaint>");
+            return true;
+        }
+
         //sends message to admin
         FileConfiguration configFile = getFileConfig();
         String loc = configFile.getString("complaintssavelocation");
         Player admin1 = Bukkit.getPlayer("OMEN44");
-        String loc2 = loc + "complaint" + player.getName() + ".txt";
-        FileManager.filewrite(loc2, msg);
+        String loc2 = loc + "Complaint about " + args[0] + ".txt";
+        FileManager.filewrite(loc2, player.getName() + " said: " + msg + "\nComplaints target is: " + args[0] + " " + targ.getUniqueId() + "\n");
         admin1.sendMessage("Sup, some one said dis: " + msg);
 
         return true;
