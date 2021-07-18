@@ -10,6 +10,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jdbi.v3.core.Jdbi;
 
 import javax.sql.DataSource;
 
@@ -28,17 +29,18 @@ public class Databasemanager{
 
         FileConfiguration configFile = getFileConfig();//loads config file
 
-        Database database = configFile.getDatabase(); // gets database info
+
+
 
         MysqlDataSource dataSource = new MysqlConnectionPoolDataSource(); //mysql databases
 
-        dataSource.setServerName(database.getHost());
-        dataSource.setPortNumber(database.getPort());
-        dataSource.setDatabaseName(database.getDatabase());
-        dataSource.setUser(database.getUser());
-        dataSource.setPassword(database.getPassword());
+        dataSource.setServerName(configFile.getString("database.host"));
+        dataSource.setPortNumber(Integer.parseInt(configFile.getString("database.port")));
+        dataSource.setDatabaseName(configFile.getString("database.database"));
+        dataSource.setUser(configFile.getString("database.user"));
+        dataSource.setPassword(configFile.getString("database.database"));
 
-        dataSource.setMaxPoolSize(8); // Default value is 8. 8 connections should be more then enough for most plugins.
+        // Default value is 8. 8 connections should be more then enough for most plugins.
 
 
         return dataSource;
@@ -61,8 +63,36 @@ public class Databasemanager{
         return jdbi;
     }
 
-    public void createTableDb(){
+    public void createTablesDb(Jbdi jdbi){
 
+        jdbi.withHandle(handle -> {
+            handle.execute("CREATE TABLE user (id INTEGER PRIMARY KEY, name VARCHAR)");
+
+            // Inline positional parameters
+            handle.execute("INSERT INTO user(id, name) VALUES (?, ?)", 0, "Alice");
+
+            // Positional parameters
+            handle.createUpdate("INSERT INTO user(id, name) VALUES (?, ?)")
+                    .bind(0, 1) // 0-based parameter indexes
+                    .bind(1, "Bob")
+                    .execute();
+
+            // Named parameters
+            handle.createUpdate("INSERT INTO user(id, name) VALUES (:id, :name)")
+                    .bind("id", 2)
+                    .bind("name", "Clarice")
+                    .execute();
+
+            // Named parameters from bean properties
+            handle.createUpdate("INSERT INTO user(id, name) VALUES (:id, :name)")
+                    .bindBean(new User(3, "David"))
+                    .execute();
+
+            // Easy mapping to any type
+            return handle.createQuery("SELECT * FROM user ORDER BY name")
+                    .mapToBean(User.class)
+                    .list();
+        }
     }
 
 }
