@@ -53,7 +53,7 @@ public class Complaints implements CommandExecutor {
         }
 
         //sends message to admin
-        FileConfiguration configFile = getFileConfig();
+        FileConfiguration configFile = getFileConfig("config.yml");
         String loc = configFile.getString("complaintssavelocation");
         Player admin1 = Bukkit.getPlayer("OMEN44");
         String loc2 = loc + "Complaint about " + args[0] + ".txt";

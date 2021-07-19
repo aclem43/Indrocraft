@@ -9,3 +9,6 @@ commands:
   Warn:
     usage: /<command>
     description: warns a player
+  SetRank:
+    usage: /<command>
+    description: Sets Players Rank

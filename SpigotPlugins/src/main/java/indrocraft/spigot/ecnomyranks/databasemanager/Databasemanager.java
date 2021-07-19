@@ -16,8 +16,8 @@ import javax.sql.DataSource;
 
 public class Databasemanager{
 
-    public static FileConfiguration getFileConfig() {
-        File configFile = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/plugins/EconomyRanks/config.yml"); // First we
+    public static FileConfiguration getFileConfig(String fileName) {
+        File configFile = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath() + "/plugins/EconomyRanks/"+fileName); // First we
         // will load
         // the file.
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile); // Now we will load the file into a
