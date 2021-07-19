@@ -60,6 +60,8 @@ public class Complaints implements CommandExecutor {
         FileManager.filewrite(loc2, player.getName() + " said: " + msg + "\nComplaints target is: " + args[0] + " " + targ.getUniqueId() + "\n");
         admin1.sendMessage("Sup, some one said dis: " + msg);
 
+
+
         return true;
     }
 }

@@ -1,7 +1,7 @@
 package indrocraft.spigot.ecnomyranks.databasemanager;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class FileManager {
 
@@ -14,6 +14,25 @@ public class FileManager {
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+    }
+
+    public static String fileread(String loc) {
+        try {
+            File myObj = new File(loc);
+            Scanner myReader = new Scanner(myObj);
+            String output = "";
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+                output += " " + data;
+            }
+            myReader.close();
+            return output;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return "An error occurred.";
         }
     }
 }
