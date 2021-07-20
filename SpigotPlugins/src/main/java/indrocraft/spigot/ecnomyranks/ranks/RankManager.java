@@ -15,25 +15,18 @@ public class RankManager {
         super();
     }
 
-    public static void setRank(Player player, Rank rank) {
-        FileConfiguration configfile = getFileConfig("ranks.yml");
-        configfile.set(player.getUniqueId() + ".rank",rank);
+    public static void setRank(Player player, Rank rank,Map<Player, Rank> ranks) {
+        map.put(player, rank);
+
+   }
+
+    public Rank getRank(Player player,Map<Player, Rank> ranks) {
+        return ranks.get(player);
     }
 
-    public Rank getRank(Player player) {
-        FileConfiguration configfile = getFileConfig("ranks.yml");
-        String rankString = configfile.getString(player.getUniqueId() + ".rank");
-        Rank rank = (rankString == null) ? Rank.NONE : Rank.valueOf(rankString);
+    public static void LoadRank(Player player) {
 
-        return rank;
-    }
-
-    public static void initLoadRank(Player player) {
-        FileConfiguration configfile = getFileConfig("ranks.yml");
-        String rankString = configfile.getString(player.getUniqueId() + ".rank");
-        Rank rank = (rankString == null) ? Rank.NONE : Rank.valueOf(rankString);
-        player.setDisplayName(rank.getPrefix() + player.getName());
-        player.setPlayerListName(rank.getPrefix() + player.getName());
+        ranks.put(player, rank);
 
 
     }
