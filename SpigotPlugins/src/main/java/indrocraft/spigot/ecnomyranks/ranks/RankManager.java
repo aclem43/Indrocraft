@@ -16,7 +16,7 @@ public class RankManager {
     }
 
     public static void setRank(Player player, Rank rank,Map<Player, Rank> ranks) {
-        map.put(player, rank);
+        ranks.put(player, rank);
 
    }
 
