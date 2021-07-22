@@ -1,5 +1,6 @@
 package indrocraft.spigot.ecnomyranks.events;
 
+import indrocraft.spigot.ecnomyranks.Main;
 import indrocraft.spigot.ecnomyranks.ranks.RankManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -7,11 +8,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Join implements Listener {
+
+
+    private final Main main;
+
+    public Join(Main main) {
+        this.main = main;
+    }
+
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        RankManager.initLoadRank(player);
-
-
+        RankManager.LoadRank(player,main.ranks);
         player.sendMessage(ChatColor.BLUE  + "Welcome To The Server! :)");
 
 

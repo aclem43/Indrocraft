@@ -36,7 +36,7 @@ public final class Main extends JavaPlugin {
         getServer().getPluginCommand("SetRank").setExecutor(new SetRank(this));
 
         //Events
-        getServer().getPluginManager().registerEvents(new Join(),this);
+        getServer().getPluginManager().registerEvents(new Join(this),this);
     }
 
 
