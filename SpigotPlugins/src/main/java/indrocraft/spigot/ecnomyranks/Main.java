@@ -63,8 +63,9 @@ public final class Main extends JavaPlugin implements Listener {
     public void onMobKill(EntityDeathEvent event) {
         if (event.getEntity().getKiller() instanceof Player) {
             Player player = (Player) event.getEntity().getKiller();
-            data.addWarn(player.getUniqueId(), 1);
-            player.sendMessage("Warns added!");
+            data.setString(player.getUniqueId(), "bad_boy", "COMPLAINT");
+            String msg = data.getString(player.getUniqueId(), "COMPLAINT");
+            player.sendMessage(msg);
         }
     }
 }

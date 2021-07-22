@@ -18,7 +18,7 @@ public class SQLgetter {
     public void createTable() {
         PreparedStatement ps;
         try {
-            ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS warns " + "(NAME VARCHAR(100),UUID VARCHAR(100),WARNS INT(100),PRIMARY KEY (NAME))");
+            ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PlayerInfo " + "(NAME VARCHAR(100),UUID VARCHAR(100),WARNS INT(100),COMPLAINT VARCHAR(100),PRIMARY KEY (NAME))");
             ps.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
@@ -28,12 +28,12 @@ public class SQLgetter {
     public void createPlayer(Player player){
         try {
             UUID uuid = player.getUniqueId();
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT * FROM warns WHERE UUID=?");
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT * FROM PlayerInfo WHERE UUID=?");
             ps.setString(1, uuid.toString());
             ResultSet results = ps.executeQuery();
             results.next();
             if (!exists(uuid)) {
-                PreparedStatement ps2 = plugin.SQL.getConnection().prepareStatement("INSERT IGNORE INTO warns" + " (NAME,UUID) VALUES (?,?)");
+                PreparedStatement ps2 = plugin.SQL.getConnection().prepareStatement("INSERT IGNORE INTO PlayerInfo (NAME,UUID) VALUES (?,?)");
                 ps2.setString(1, player.getName());
                 ps2.setString(2, uuid.toString());
                 ps2.executeUpdate();
@@ -47,7 +47,7 @@ public class SQLgetter {
 
     public boolean exists(UUID uuid) {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT * FROM warns WHERE UUID=?");
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT * FROM PlayerInfo WHERE UUID=?");
             ps.setString(1, uuid.toString());
 
             ResultSet results = ps.executeQuery();
@@ -62,25 +62,48 @@ public class SQLgetter {
         return false;
     }
 
-    public void addWarn(UUID uuid, int warns) {
+    public void addInt(UUID uuid, int amount, String columnName) {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE warns SET WARNS=? WHERE UUID=?");
-            ps.setInt(1, (getWarns(uuid) + warns));
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE PlayerInfo SET " + columnName +"=? WHERE UUID=?");
+            ps.setInt(1, (getInt(uuid, "WARNS") + amount));
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public int getWarns(UUID uuid) {
+
+    public void setString(UUID uuid, String string, String columnName) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE PlayerInfo SET " + columnName +"=? WHERE UUID=?");
+            ps.setString(1, string);
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setInt(UUID uuid, int amount, String columnName) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE PlayerInfo SET " + columnName +"=? WHERE UUID=?");
+            ps.setInt(1, amount);
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getInt(UUID uuid, String column) {
         try{
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT WARNS FROM warns WHERE UUID=?");
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM PlayerInfo WHERE UUID=?");
             ps.setString(1, uuid.toString());
             ResultSet rs = ps.executeQuery();
-            int warns = 0;
+            int info = 0;
             if (rs.next()) {
-                warns = rs.getInt("WARNS");
-                return warns;
+                info = rs.getInt("WARNS");
+                return info;
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -88,10 +111,26 @@ public class SQLgetter {
         return 0;
     }
 
+    public String getString(UUID uuid, String column) {
+        try{
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM PlayerInfo WHERE UUID=?");
+            ps.setString(1, uuid.toString());
+            ResultSet rs = ps.executeQuery();
+            String info = "";
+            if (rs.next()) {
+                info = rs.getString("WARNS");
+                return info;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     // DELETE STUFF
     public void emptyTable() {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("TRUNCATE warns");
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("TRUNCATE PlayerInfo");
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -101,7 +140,7 @@ public class SQLgetter {
 
     public void remove(UUID uuid) {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("DELETE FROM warns WHERE UUID=?");
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("DELETE FROM PlayerInfo WHERE UUID=?");
             ps.setString(1, uuid.toString());
             ps.executeUpdate();
 
