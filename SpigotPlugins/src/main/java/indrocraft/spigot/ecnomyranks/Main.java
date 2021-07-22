@@ -66,6 +66,7 @@ public final class Main extends JavaPlugin implements Listener {
             data.setString(player.getUniqueId(), "bad_boy", "COMPLAINT");
             String msg = data.getString(player.getUniqueId(), "COMPLAINT");
             player.sendMessage(msg);
+            data.addcolumn("feed", "VARCHAR(100)");
         }
     }
 }

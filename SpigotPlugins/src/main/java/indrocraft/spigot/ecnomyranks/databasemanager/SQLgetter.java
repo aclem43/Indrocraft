@@ -25,6 +25,15 @@ public class SQLgetter {
         }
     }
 
+    public void addcolumn(String columnName, String dataType) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("ALTER TABLE playerinfo ADD " + columnName + " " + dataType);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createPlayer(Player player){
         try {
             UUID uuid = player.getUniqueId();
