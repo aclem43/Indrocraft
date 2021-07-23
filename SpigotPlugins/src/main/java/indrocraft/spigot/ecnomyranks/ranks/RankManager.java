@@ -24,13 +24,13 @@ public class RankManager {
         return ranks.get(player);
     }
 
-    public static void LoadRank(Player player,Map<Player, Rank> ranks) {
-        player.setDisplayName(prefix.get(rank) + player.getName());
-        player.setPlayerListName(prefix.get(rank) + player.getName());
+    //public static void LoadRank(Player player,Map<Player, Rank> ranks) {
+      //  player.setDisplayName(prefix.get(rank) + player.getName());
+        //player.setPlayerListName(prefix.get(rank) + player.getName());
         //ranks.put(player, rank);
 
 
-    }
+    //}
 
 
 }

@@ -18,7 +18,7 @@ public class SQLgetter {
     public void createTable() {
         PreparedStatement ps;
         try {
-            ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PlayerInfo " + "(NAME VARCHAR(100),UUID VARCHAR(100),WARNS INT(100),COMPLAINT VARCHAR(100),PRIMARY KEY (NAME))");
+            ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PlayerInfo " + "(NAME VARCHAR(100),UUID VARCHAR(100),PRIMARY KEY (NAME))");
             ps.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
@@ -27,7 +27,7 @@ public class SQLgetter {
 
     public void addcolumn(String columnName, String dataType) {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("ALTER TABLE playerinfo ADD " + columnName + " " + dataType);
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("ALTER TABLE playerinfo ADD IF NOT EXISTS " + columnName + " " + dataType);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,11 +74,12 @@ public class SQLgetter {
     public void addInt(UUID uuid, int amount, String columnName) {
         try {
             PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE PlayerInfo SET " + columnName +"=? WHERE UUID=?");
-            ps.setInt(1, (getInt(uuid, "WARNS") + amount));
+            ps.setInt(1, (getInt(uuid, columnName) + amount));
             ps.setString(2, uuid.toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
     }
 
@@ -111,7 +112,7 @@ public class SQLgetter {
             ResultSet rs = ps.executeQuery();
             int info = 0;
             if (rs.next()) {
-                info = rs.getInt("WARNS");
+                info = rs.getInt(column);
                 return info;
             }
         }catch (SQLException e) {
@@ -127,7 +128,7 @@ public class SQLgetter {
             ResultSet rs = ps.executeQuery();
             String info = "";
             if (rs.next()) {
-                info = rs.getString("WARNS");
+                info = rs.getString(column);
                 return info;
             }
         }catch (SQLException e) {

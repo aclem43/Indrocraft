@@ -2,6 +2,7 @@ package indrocraft.spigot.ecnomyranks.commands;
 
 import indrocraft.spigot.ecnomyranks.Main;
 import indrocraft.spigot.ecnomyranks.databasemanager.FileManager;
+import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,6 +23,7 @@ public class Complaints implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        main.data.addcolumn("ComplaintMessage", "VARCHAR(255)");
         //checks if the console issued the command
         if (!(sender instanceof Player)) {
             main.getLogger().info("Must be a player to use this command!");
@@ -52,16 +54,10 @@ public class Complaints implements CommandExecutor {
             return true;
         }
 
+        main.data.setString(targ.getUniqueId(), main.data.getString(targ.getUniqueId(), "ComplaintMessage") + ", " +msg, "ComplaintMessage");
         //sends message to admin
-        FileConfiguration configFile = getFileConfig("config.yml");
-        String loc = configFile.getString("complaintssavelocation");
         Player admin1 = Bukkit.getPlayer("OMEN44");
-        String loc2 = loc + "Complaint about " + args[0] + ".txt";
-        FileManager.filewrite(loc2, player.getName() + " said: " + msg + "\nComplaints target is: " + args[0] + " " + targ.getUniqueId() + "\n");
         admin1.sendMessage("Sup, some one said dis: " + msg);
-
-
-
         return true;
     }
 }
