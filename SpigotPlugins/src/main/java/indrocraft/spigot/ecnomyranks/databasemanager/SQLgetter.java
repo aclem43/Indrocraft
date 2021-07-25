@@ -18,7 +18,7 @@ public class SQLgetter {
     public void createTable() {
         PreparedStatement ps;
         try {
-            ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PlayerInfo " + "(NAME VARCHAR(100),UUID VARCHAR(100),WARNS INT(100),COMPLAINT VARCHAR(100),PRIMARY KEY (NAME))");
+            ps = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PlayerInfo " + "(NAME VARCHAR(100),UUID VARCHAR(100),WARNS INT(100),RANKS VARCHAR(100),PRIMARY KEY (NAME))");
             ps.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
