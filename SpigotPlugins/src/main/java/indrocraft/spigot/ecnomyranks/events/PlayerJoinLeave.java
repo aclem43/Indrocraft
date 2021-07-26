@@ -1,6 +1,7 @@
 package indrocraft.spigot.ecnomyranks.events;
 
 import indrocraft.spigot.ecnomyranks.Main;
+import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import indrocraft.spigot.ecnomyranks.ranks.Rank;
 import indrocraft.spigot.ecnomyranks.ranks.RankManager;
@@ -15,21 +16,46 @@ import java.util.Map;
 
 public class PlayerJoinLeave implements Listener {
 
-
-    private Map<Player, Rank> ranks ;
+    private Map<Player, Rank> ranks;
     private SQLgetter data;
+
 
     public PlayerJoinLeave(Map<Player, Rank> ranks, SQLgetter data ) {
         this.ranks = ranks;
         this.data = data;
     }
 
+
+
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        RankManager.LoadRank(player,this.ranks);
         player.sendMessage(ChatColor.BLUE  + "Welcome To The Server! :)");
-        this.data.createPlayer(player); // ADD gremlin Rank to player
+        data.createPlayer(player); // ADD gremlin Rank to player
+        data.addcolumn("Rank", "VARCHAR(100)");
+
+        //setting columns to default values if not already
+        String rank = data.getString(player.getUniqueId(), "Rank");
+        String Wallet = data.getString(player.getUniqueId(), "Wallet");
+        String Bank = data.getString(player.getUniqueId(), "Bank");
+        String count = data.getString(player.getUniqueId(), "count");
+        String complaint = data.getString(player.getUniqueId(), "ComplaintMessage");
+        if (rank == null) {
+            data.setString(player.getUniqueId(), "Gremlin", "Rank");
+        }
+        if (Wallet == null) {
+            data.setInt(player.getUniqueId(), 0, "Wallet");
+        }
+        if (Bank == null) {
+            data.setInt(player.getUniqueId(), 0, "Bank");
+        }
+        if (count == null) {
+            data.setInt(player.getUniqueId(), 0, "count");
+        }
+        if (complaint == null) {
+            data.setString(player.getUniqueId(), "", "ComplaintMessage");
+        }
+        RankManager.LoadRank(player,this.ranks);
 
 
     }
@@ -39,5 +65,6 @@ public class PlayerJoinLeave implements Listener {
         Player player = event.getPlayer();
         Rank rank = RankManager.getRank(player,this.ranks);
         // use rank to add to database
+        data.setString(player.getUniqueId(), rank.toString(), "Rank");
     }
 }

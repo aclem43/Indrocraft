@@ -17,7 +17,7 @@ public class Join implements Listener {
         this.main = main;
     }
 
-    public void onPlayerJoinEvent(@org.jetbrains.annotations.NotNull PlayerJoinEvent event) {
+    public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         //RankManager.LoadRank(player,main.ranks);
         player.sendMessage(ChatColor.BLUE  + "Welcome To The Server! :)");
