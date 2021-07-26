@@ -62,11 +62,8 @@ public class Economy implements TabExecutor {
             }
             //withdraws money to your wallet from bank:
             if ("with".equalsIgnoreCase(args[0]) || "withdraw".equalsIgnoreCase(args[0])) {
-                List<String> arg = new ArrayList<>();
-                arg.add(args[1]);
-                player.sendMessage(arg.toString());
-                if (arg.toString() == "") {
-                    player.sendMessage(ChatColor.RED + "You must put a number after 'with'");
+                if (args.length == 1) {
+                    player.sendMessage(ChatColor.RED + "You must put a number after 'withdraw'");
                     return true;
                 }
                 if (isNum(args[1])) {
@@ -88,8 +85,8 @@ public class Economy implements TabExecutor {
             }
             //deposits money to your wallet
             if ("dep".equalsIgnoreCase(args[0]) || "deposit".equalsIgnoreCase(args[0])) {
-                if (args.length == 0) {
-                    player.sendMessage(ChatColor.RED + "You must put a number after 'with'");
+                if (args.length == 1) {
+                    player.sendMessage(ChatColor.RED + "You must put a number after 'deposit'");
                     return true;
                 }
                 String num = args[1];

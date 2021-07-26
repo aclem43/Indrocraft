@@ -48,6 +48,7 @@ public class Warn implements CommandExecutor {
         }
 
         player.sendMessage("You have warned: " + args[0]);
+        traget.sendMessage(ChatColor.RED + "You have been warned! Watch it!");
         main.data.setInt(traget.getUniqueId(), main.data.getInt(traget.getUniqueId(), "count") + 1, "count");
         return true;
     }
