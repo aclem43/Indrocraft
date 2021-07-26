@@ -12,3 +12,7 @@ commands:
   SetRank:
     usage: /<command>
     description: Sets Players Rank
+  Economy:
+    usage: /<command>
+    description: the money system
+    aliases: [eco, e]

@@ -1,7 +1,7 @@
 package indrocraft.spigot.ecnomyranks;
 
 import indrocraft.spigot.ecnomyranks.commands.Complaints;
-import indrocraft.spigot.ecnomyranks.commands.Mail;
+import indrocraft.spigot.ecnomyranks.commands.Economy;
 import indrocraft.spigot.ecnomyranks.commands.SetRank;
 import indrocraft.spigot.ecnomyranks.commands.Warn;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
@@ -38,7 +38,8 @@ public final class Main extends JavaPlugin{
             getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
             getServer().getPluginCommand("Warn").setExecutor(new Warn(this));
             getServer().getPluginCommand("SetRank").setExecutor(new SetRank(this));
-            getServer().getPluginCommand("Mail").setExecutor(new Mail(this));
+            getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
+            getCommand("Economy").setTabCompleter(new Economy(this));
 
 
             //Events
