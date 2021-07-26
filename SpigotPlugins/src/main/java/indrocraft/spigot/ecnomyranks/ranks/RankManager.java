@@ -18,11 +18,14 @@ public class RankManager {
     }
 
     public static void setRank(Player player, Rank rank,Map<Player, Rank> ranks) {
+        player.setDisplayName(rank.getPrefix() + player.getName());
+        player.setPlayerListName(rank.getPrefix() + player.getName());
         ranks.put(player, rank);
 
    }
 
    public static void saveRank(Player player,Map<Player, Rank> ranks){
+
         ranks.get(player);
     }
 

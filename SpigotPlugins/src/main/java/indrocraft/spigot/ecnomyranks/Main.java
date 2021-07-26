@@ -24,6 +24,10 @@ public final class Main extends JavaPlugin{
 
         public Map<Player, Rank> ranks;
 
+        public Main() {
+            Map<Player, Rank> ranks = new HashMap<>();
+        }
+
         @Override
         public void onEnable() {
             // Plugin startup logic
@@ -32,7 +36,7 @@ public final class Main extends JavaPlugin{
             this.SQL = new MySQL();
             this.data = new SQLgetter(this);
 
-            Map<Player, Rank> ranks = new HashMap<>();
+
 
             //Commands
             getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
@@ -41,6 +45,8 @@ public final class Main extends JavaPlugin{
             getServer().getPluginCommand("Dev").setExecutor(new Dev());
             getServer().getPluginCommand("Convert").setExecutor(new Converter());
 
+            //Commands Tab Autocomplete
+            getCommand("SetRank").setTabCompleter(new SetRank(this));
             //Events
             getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks,data), this);
 

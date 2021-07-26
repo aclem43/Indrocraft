@@ -7,8 +7,9 @@ public enum Rank {
     HERO(ChatColor.AQUA, "HERO"),
     DGOD(ChatColor.BLUE, "DEMIGOD"),
     GOD(ChatColor.LIGHT_PURPLE,  "GOD"),
-    TITAN(ChatColor.GOLD,  "TITAN"),
-    DEV(ChatColor.BLACK,  "DEV");
+    TITAN(ChatColor.GREEN,  "TITAN"),
+    DEV(ChatColor.BLACK,  "DEV"),
+    DONOR(ChatColor.GOLD,  "$ DONOR $");
 
     private final String prefix;
 
