@@ -1,6 +1,11 @@
 package indrocraft.spigot.ecnomyranks;
 
 import indrocraft.spigot.ecnomyranks.commands.*;
+
+import indrocraft.spigot.ecnomyranks.commands.Complaints;
+import indrocraft.spigot.ecnomyranks.commands.Economy;
+import indrocraft.spigot.ecnomyranks.commands.SetRank;
+import indrocraft.spigot.ecnomyranks.commands.Warn;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import indrocraft.spigot.ecnomyranks.events.PlayerJoinLeave;
@@ -40,10 +45,13 @@ public final class Main extends JavaPlugin{
 
             //Commands
             getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
-            getServer().getPluginCommand("Warn").setExecutor(new Warn());
+            getServer().getPluginCommand("Warn").setExecutor(new Warn(this));
             getServer().getPluginCommand("SetRank").setExecutor(new SetRank(this));
             getServer().getPluginCommand("Dev").setExecutor(new Dev());
             getServer().getPluginCommand("Convert").setExecutor(new Converter());
+            getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
+            getCommand("Economy").setTabCompleter(new Economy(this));
+
 
             //Commands Tab Autocomplete
             getCommand("SetRank").setTabCompleter(new SetRank(this));

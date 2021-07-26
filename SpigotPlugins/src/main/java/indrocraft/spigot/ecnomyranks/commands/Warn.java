@@ -1,6 +1,8 @@
 package indrocraft.spigot.ecnomyranks.commands;
 
+import indrocraft.spigot.ecnomyranks.Main;
 import indrocraft.spigot.ecnomyranks.databasemanager.FileManager;
+import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,8 +21,14 @@ import static indrocraft.spigot.ecnomyranks.databasemanager.Databasemanager.getF
 
 public class Warn implements CommandExecutor {
 
+    private final Main main;
+
+    public Warn(Main main) {this.main = main;}
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        main.data.addcolumn("count", "INT(100)");
+
         if (!(sender instanceof Player)) {
             sender.sendMessage("must be a player to warn a player");
             return true;
@@ -32,6 +40,7 @@ public class Warn implements CommandExecutor {
 
         Player player = (Player) sender;
         Player traget = Bukkit.getPlayer(args[0]);
+        main.data.createPlayer(traget);
 
         if (!(traget instanceof Player)) {
             player.sendMessage(ChatColor.RED + "You need to target a real player!");
@@ -39,21 +48,8 @@ public class Warn implements CommandExecutor {
         }
 
         player.sendMessage("You have warned: " + args[0]);
-
-        String msg = player.getName() + " Warned: " + args[0] + "\n" + args[0] + " UUID " + traget.getUniqueId() + "\n\n";
-
-        FileConfiguration configFile = getFileConfig("config.yml");
-        String locaction = configFile.getString("WarnSaveLocation");
-        String fileName = locaction + "Warns" + ".txt";
-
-        try {
-            Files.write(Paths.get(fileName), msg.getBytes(), StandardOpenOption.APPEND);
-        }catch (IOException e) {
-            player.sendMessage("it no work");
-            FileManager.filewrite(fileName, msg);
-            //exception handling left as an exercise for the reader
-        }
-
+        traget.sendMessage(ChatColor.RED + "You have been warned! Watch it!");
+        main.data.setInt(traget.getUniqueId(), main.data.getInt(traget.getUniqueId(), "count") + 1, "count");
         return true;
     }
 }

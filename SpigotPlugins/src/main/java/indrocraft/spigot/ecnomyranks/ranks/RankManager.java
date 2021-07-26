@@ -34,6 +34,7 @@ public class RankManager {
         return ranks.get(player);
     }
 
+
     public static void LoadRank(Player player,Map<Player, Rank> ranks) {
 
         player.setDisplayName(NONE.getPrefix() + player.getName());
@@ -73,10 +74,6 @@ public class RankManager {
             player.setPlayerListName(rank.getPrefix() + player.getName());
         }
         player.sendMessage("Rank Updating");
-        //ranks.put(player, rank);
 
-
-    }
-
-
+}
 }
