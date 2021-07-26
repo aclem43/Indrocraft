@@ -12,7 +12,7 @@ commands:
   SetRank:
     usage: /<command>
     description: Sets Players Rank
-<<<<<<< HEAD
+
   Dev:
     usage: /<command>
     description: Command Used For Devlopment and testing
@@ -21,9 +21,8 @@ commands:
     usage: /<command>
     description: Use as a calculator to conver blocks into stacks and stacks into blocks \n Usage- /c type arg - arguments for type
     alias: "c"
-=======
   Economy:
     usage: /<command>
     description: the money system
     aliases: [eco, e]
->>>>>>> origin/feature/Economy
+
