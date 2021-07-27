@@ -57,7 +57,6 @@ public class PlayerJoinLeave implements Listener {
         }
         RankManager.LoadRank(player,this.ranks);
 
-
     }
 
     @EventHandler
