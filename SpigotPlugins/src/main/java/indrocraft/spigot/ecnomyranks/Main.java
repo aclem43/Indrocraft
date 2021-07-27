@@ -34,6 +34,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     public Map<Player, Rank> ranks;
 
+
     public Main() {
         Map<Player, Rank> ranks = new HashMap<>();
     }
@@ -46,6 +47,7 @@ public final class Main extends JavaPlugin implements Listener {
         this.SQL = new MySQL();
         this.data = new SQLgetter(this);
 
+
         //Commands
         getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
         getServer().getPluginCommand("Warn").setExecutor(new Warn(this));
@@ -53,27 +55,31 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginCommand("Dev").setExecutor(new Dev());
         getServer().getPluginCommand("Convert").setExecutor(new Converter());
         getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
-        getCommand("Economy").setTabCompleter(new Economy(this));
 
 
         //Commands Tab Autocomplete
         getCommand("SetRank").setTabCompleter(new SetRank(this));
+        getCommand("Economy").setTabCompleter(new Economy(this));
         //Events
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
+
 
         try {
             SQL.connect();
         } catch (ClassNotFoundException | SQLException e) {
             //e.printStackTrace();
-            Bukkit.getLogger().info(ChatColor.RED +"Database not connected!");
+            Bukkit.getLogger().info(ChatColor.RED + "Database not connected!");
         }
 
         if (SQL.isConnected()) {
             Bukkit.getLogger().info(ChatColor.BLUE + "Database is connected!");
             data.createTable();
             this.getServer().getPluginManager().registerEvents(onJoin, this);
+
+
         }
     }
+
 
     @Override
     public void onDisable() {

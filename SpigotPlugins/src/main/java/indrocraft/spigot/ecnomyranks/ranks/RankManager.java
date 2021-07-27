@@ -24,10 +24,6 @@ public class RankManager {
 
    }
 
-   public static void saveRank(Player player,Map<Player, Rank> ranks){
-
-        ranks.get(player);
-    }
 
 
     public static Rank getRank(Player player, Map<Player, Rank> ranks) {
