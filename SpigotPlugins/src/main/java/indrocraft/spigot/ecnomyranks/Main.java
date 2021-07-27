@@ -50,11 +50,12 @@ public final class Main extends JavaPlugin{
             getServer().getPluginCommand("Dev").setExecutor(new Dev());
             getServer().getPluginCommand("Convert").setExecutor(new Converter());
             getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
-            getCommand("Economy").setTabCompleter(new Economy(this));
+
 
 
             //Commands Tab Autocomplete
             getCommand("SetRank").setTabCompleter(new SetRank(this));
+            getCommand("Economy").setTabCompleter(new Economy(this));
             //Events
             getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks,data), this);
 
