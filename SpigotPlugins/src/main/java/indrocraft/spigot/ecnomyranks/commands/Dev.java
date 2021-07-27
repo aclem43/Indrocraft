@@ -21,6 +21,10 @@ public class Dev implements CommandExecutor {
             }else{
                 player.sendMessage(args);
             }
+
+            if ("world".equalsIgnoreCase(args[0])) {
+                player.sendMessage(player.getWorld().toString());
+            }
         }
         return true;
     }
