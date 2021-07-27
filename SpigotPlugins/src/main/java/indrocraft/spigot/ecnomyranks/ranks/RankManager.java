@@ -10,8 +10,21 @@ import java.util.Map;
 import static indrocraft.spigot.ecnomyranks.databasemanager.Databasemanager.getFileConfig;
 import static indrocraft.spigot.ecnomyranks.ranks.Rank.NONE;
 import static org.bukkit.Bukkit.getPlayer;
+/*
+Huon Todo -
+loadrank: Gets Rank from data base and sets rank string to correct rank
+setrank: Setsrank in database to new rank
+getrank:returns Players rank
+
+
+
+
+ */
 
 public class RankManager {
+
+
+
 
     public RankManager(){
         super();
@@ -33,8 +46,10 @@ public class RankManager {
 
     public static void LoadRank(Player player,Map<Player, Rank> ranks) {
 
-        player.setDisplayName(NONE.getPrefix() + player.getName());
+        String rank  = NONE.getPrefix();
+        player.setDisplayName(rank + player.getName());
         player.setPlayerListName(NONE.getPrefix() + player.getName());
+
         ranks.put(player, NONE);
 
 
