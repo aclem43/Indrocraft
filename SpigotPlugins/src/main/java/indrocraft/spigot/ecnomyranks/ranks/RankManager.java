@@ -1,5 +1,7 @@
 package indrocraft.spigot.ecnomyranks.ranks;
 
+import indrocraft.spigot.ecnomyranks.Main;
+import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import indrocraft.spigot.ecnomyranks.ranks.Rank;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -8,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static indrocraft.spigot.ecnomyranks.databasemanager.Databasemanager.getFileConfig;
-import static indrocraft.spigot.ecnomyranks.ranks.Rank.NONE;
+import static indrocraft.spigot.ecnomyranks.ranks.Rank.*;
 import static org.bukkit.Bukkit.getPlayer;
 /*
 Huon Todo -
@@ -26,31 +28,51 @@ public class RankManager {
 
 
 
-    public RankManager(){
-        super();
-    }
+    public static Rank codeGetRank(String code){
+        if (code.equals("GRE")){
+            return NONE;
+        }else if (code.equals("HER")){
+            return HERO;
+        }else if (code.equals("DGD")){
+            return DGOD;
+        }else if (code.equals("GOD")){
+            return GOD;
+        }else if (code.equals("TIT")){
+            return TITAN;
+        }else if (code.equals("DEV")){
+            return DEV;
+        }else if (code.equals("DON")){
+            return DONOR;
+        }else {
+            return NONE;
+        }
 
-    public static void setRank(Player player, Rank rank,Map<Player, Rank> ranks) {
+    }
+    public static void setRank(Player player, Rank rank, SQLgetter data) {
         player.setDisplayName(rank.getPrefix() + player.getName());
         player.setPlayerListName(rank.getPrefix() + player.getName());
-        ranks.put(player, rank);
+        data.setString(player.getUniqueId(), rank.getCode(), "Rank" );
+        //main.data.getString(player.getUniqueId(),"Rank");
 
    }
 
 
 
-    public static Rank getRank(Player player, Map<Player, Rank> ranks) {
-        return ranks.get(player);
+    public static Rank getRank(Player player,SQLgetter data) {
+        String code = data.getString(player.getUniqueId(),"Rank");
+        Rank rank = codeGetRank(code);
+        return  rank;
     }
 
 
-    public static void LoadRank(Player player,Map<Player, Rank> ranks) {
+    public static void LoadRank(Player player,SQLgetter data) {
 
-        String rank  = NONE.getPrefix();
+
+        Rank rank = getRank(player,data);
         player.setDisplayName(rank + player.getName());
         player.setPlayerListName(NONE.getPrefix() + player.getName());
 
-        ranks.put(player, NONE);
+
 
 
     }
@@ -64,11 +86,11 @@ public class RankManager {
             player.setDisplayName(rank.getPrefix() + player.getName());
             player.setPlayerListName(rank.getPrefix() + player.getName());
         }else if("HERO".equalsIgnoreCase(rankString)){
-            Rank rank = Rank.HERO;
+            Rank rank = HERO;
             player.setDisplayName(rank.getPrefix() + player.getName());
             player.setPlayerListName(rank.getPrefix() + player.getName());
         }else if(rankString=="DGOD"){
-            Rank rank = Rank.DGOD;
+            Rank rank = DGOD;
             player.setDisplayName(rank.getPrefix() + player.getName());
             player.setPlayerListName(rank.getPrefix() + player.getName());
         }else if(rankString=="GOD"){

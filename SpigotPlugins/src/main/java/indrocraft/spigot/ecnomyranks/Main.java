@@ -8,8 +8,8 @@ import indrocraft.spigot.ecnomyranks.commands.SetRank;
 import indrocraft.spigot.ecnomyranks.commands.Warn;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
-import indrocraft.spigot.ecnomyranks.events.Join;
 import indrocraft.spigot.ecnomyranks.events.PlayerJoinLeave;
+import indrocraft.spigot.ecnomyranks.events.RankEvents;
 import indrocraft.spigot.ecnomyranks.ranks.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -62,6 +62,7 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("Economy").setTabCompleter(new Economy(this));
         //Events
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
+        getServer().getPluginManager().registerEvents(new RankEvents(), this);
 
 
         try {
@@ -74,7 +75,7 @@ public final class Main extends JavaPlugin implements Listener {
         if (SQL.isConnected()) {
             Bukkit.getLogger().info(ChatColor.BLUE + "Database is connected!");
             data.createTable();
-            this.getServer().getPluginManager().registerEvents(onJoin, this);
+
 
 
         }

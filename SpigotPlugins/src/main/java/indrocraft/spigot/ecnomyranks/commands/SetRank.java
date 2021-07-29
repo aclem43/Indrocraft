@@ -25,29 +25,29 @@ public class SetRank implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // arg 0 = Target i.e Aclem43, arg 1 = rank name i.e Hero  -
+        // arg 0 = Target i.e Aclem43, arg 1 = rank,main.data name i.e Hero  -
         if (sender.isOp()){
             if("GREMLIN".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.NONE;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("HERO".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.HERO;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("DGOD".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.DGOD;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("GOD".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.GOD;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("TITAN".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.TITAN;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("DEV".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.DEV;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("DONOR".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.DONOR;
-                RankManager.setRank(getPlayer(args[0]),rank,main.ranks);
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }
 
         }

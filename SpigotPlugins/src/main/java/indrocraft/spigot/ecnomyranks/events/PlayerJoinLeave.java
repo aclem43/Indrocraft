@@ -55,14 +55,14 @@ public class PlayerJoinLeave implements Listener {
         if (complaint == null) {
             data.setString(player.getUniqueId(), "", "ComplaintMessage");
         }
-        RankManager.LoadRank(player,this.ranks);
+        RankManager.LoadRank(player,data);
 
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        Rank rank = RankManager.getRank(player,this.ranks);
+        Rank rank = RankManager.getRank(player,data);
         // use rank to add to database
         data.setString(player.getUniqueId(), rank.toString(), "Rank");
     }
