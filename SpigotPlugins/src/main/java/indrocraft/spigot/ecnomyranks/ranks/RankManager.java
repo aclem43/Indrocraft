@@ -69,8 +69,9 @@ public class RankManager {
 
 
         Rank rank = getRank(player,data);
-        player.setDisplayName(rank + player.getName());
-        player.setPlayerListName(NONE.getPrefix() + player.getName());
+
+        player.setDisplayName(rank.getPrefix() + player.getName());
+        player.setPlayerListName(rank.getPrefix() + player.getName());
 
 
 

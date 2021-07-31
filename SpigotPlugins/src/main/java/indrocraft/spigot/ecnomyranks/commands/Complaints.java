@@ -53,11 +53,13 @@ public class Complaints implements CommandExecutor {
             player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <PlayerName> <complaint>");
             return true;
         }
+        if (player == targ) {
+            player.sendMessage(ChatColor.RED + "Cannot target yourself!");
+            return true;
+        }
 
         main.data.setString(targ.getUniqueId(), main.data.getString(targ.getUniqueId(), "ComplaintMessage") + ", " +msg, "ComplaintMessage");
-        //sends message to admin
-        Player admin1 = Bukkit.getPlayer("OMEN44");
-        admin1.sendMessage("Sup, some one said dis: " + msg);
+        player.sendMessage(ChatColor.BLUE + "Message successfully sent!");
         return true;
     }
 }

@@ -30,7 +30,7 @@ public class PlayerJoinLeave implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        player.sendMessage(ChatColor.BLUE  + "Welcome To The Server! :)");
+        event.setJoinMessage(ChatColor.GREEN  + "Welcome " + player.getName() + " To " + ChatColor.BOLD + "IndroCraft!\n" + ChatColor.GREEN + "Join the conversation on our discord server:\n" + ChatColor.BLUE + ChatColor.UNDERLINE + "https://discord.gg/XdKgd7mbHJ");
         data.createPlayer(player); // ADD gremlin Rank to player
         data.addcolumn("Rank", "VARCHAR(100)");
 
@@ -41,7 +41,7 @@ public class PlayerJoinLeave implements Listener {
         String count = data.getString(player.getUniqueId(), "count");
         String complaint = data.getString(player.getUniqueId(), "ComplaintMessage");
         if (rank == null) {
-            data.setString(player.getUniqueId(), "Gremlin", "Rank");
+            data.setString(player.getUniqueId(), "NONE", "Rank");
         }
         if (Wallet == null) {
             data.setInt(player.getUniqueId(), 0, "Wallet");
@@ -63,6 +63,7 @@ public class PlayerJoinLeave implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
         Rank rank = RankManager.getRank(player,data);
+        event.setQuitMessage(ChatColor.GREEN + "See you soon " + player.getName() + "!");
         // use rank to add to database
         data.setString(player.getUniqueId(), rank.toString(), "Rank");
     }
