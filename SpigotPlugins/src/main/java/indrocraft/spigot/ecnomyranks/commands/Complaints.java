@@ -23,7 +23,6 @@ public class Complaints implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        main.data.addcolumn("ComplaintMessage", "VARCHAR(255)");
         //checks if the console issued the command
         if (!(sender instanceof Player)) {
             main.getLogger().info("Must be a player to use this command!");

@@ -31,8 +31,13 @@ public class PlayerJoinLeave implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         event.setJoinMessage(ChatColor.GREEN  + "Welcome " + player.getName() + " To " + ChatColor.BOLD + "IndroCraft!\n" + ChatColor.GREEN + "Join the conversation on our discord server:\n" + ChatColor.BLUE + ChatColor.UNDERLINE + "https://discord.gg/XdKgd7mbHJ");
+        //fills in the database with required columns
         data.createPlayer(player); // ADD gremlin Rank to player
         data.addcolumn("Rank", "VARCHAR(100)");
+        data.addcolumn("Bank", "INT(100)");
+        data.addcolumn("Wallet", "INT(100)");
+        data.addcolumn("ComplaintMessage", "VARCHAR(255)");
+        data.addcolumn("Count", "INT(100)");
 
         //setting columns to default values if not already
         String rank = data.getString(player.getUniqueId(), "Rank");

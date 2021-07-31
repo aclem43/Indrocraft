@@ -20,8 +20,6 @@ public class Economy implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        main.data.addcolumn("Bank", "INT(100)");
-        main.data.addcolumn("Wallet", "INT(100)");
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can use this command!");
@@ -40,10 +38,10 @@ public class Economy implements TabExecutor {
             if ("help".equalsIgnoreCase(args[0])) {
                 player.sendMessage(ChatColor.GREEN + "Economy help menu\nTry using '/e'\n" + ChatColor.YELLOW + ChatColor.STRIKETHROUGH + "-----------------------------");
                 player.sendMessage(ChatColor.GOLD + "/economy bank" + ChatColor.GREEN + " - Shows you how much money you have in your bank");
-                player.sendMessage(ChatColor.GOLD + "/economy withdraw" + ChatColor.RED + " [amount]" + ChatColor.GREEN + " - withdraws money to your wallet");
-                player.sendMessage(ChatColor.GOLD + "/economy deposit" + ChatColor.RED + " [amount]" + ChatColor.GREEN + " - deposits money to your bank");
+                player.sendMessage(ChatColor.GOLD + "/economy withdraw" + ChatColor.RED + " [amount]" + ChatColor.GREEN + " - Withdraws money to your wallet");
+                player.sendMessage(ChatColor.GOLD + "/economy deposit" + ChatColor.RED + " [amount]" + ChatColor.GREEN + " - Deposits money to your bank");
                 player.sendMessage(ChatColor.GOLD + "/economy wallet" + ChatColor.GREEN + " - Shows you how much money you can access on this server");
-                player.sendMessage(ChatColor.GOLD + "/economy pay" + ChatColor.RED + " [player] [amount]" + ChatColor.GREEN + " - sends money to another player");
+                player.sendMessage(ChatColor.GOLD + "/economy pay" + ChatColor.RED + " [player] [amount]" + ChatColor.GREEN + " - Sends money to another player");
                 player.sendMessage("" + ChatColor.YELLOW + ChatColor.STRIKETHROUGH + "-----------------------------");
                 return true;
             }
@@ -55,7 +53,7 @@ public class Economy implements TabExecutor {
             //shows your current bank or wallet balance:
             if ("bank".equalsIgnoreCase(args[0])) {
                 String ban = main.data.getString(player.getUniqueId(), "bank");
-                player.sendMessage("You current have: $" + ban + "  in your bank account!");
+                player.sendMessage("You current have: $" + ban + " in your bank account!");
             }
             if ("wal".equalsIgnoreCase(args[0]) || "wallet".equalsIgnoreCase(args[0])) {
                 String wal = main.data.getString(player.getUniqueId(), "wallet");
@@ -72,7 +70,7 @@ public class Economy implements TabExecutor {
                     int wal = main.data.getInt(player.getUniqueId(), "Wallet");
                     int amount = (Integer.parseInt(args[1]));
                     if (amount > ban) {
-                        player.sendMessage(ChatColor.BLUE + "You dont have enough money in your bank to do that!");
+                        player.sendMessage(ChatColor.RED + "You dont have enough money in your bank to do that!");
                         return true;
                     }
                     main.data.setInt(player.getUniqueId(), wal + amount, "Wallet");
@@ -154,6 +152,7 @@ public class Economy implements TabExecutor {
             arg1.add("pay");
             arg1.add("wallet");
             arg1.add("withdraw");
+            arg1.add("help");
             return arg1;
         }
         return null;

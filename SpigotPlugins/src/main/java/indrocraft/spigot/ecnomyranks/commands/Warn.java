@@ -16,7 +16,6 @@ public class Warn implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        main.data.addcolumn("count", "INT(100)");
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("must be a player to warn a player");
