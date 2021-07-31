@@ -8,8 +8,10 @@ import indrocraft.spigot.ecnomyranks.commands.SetRank;
 import indrocraft.spigot.ecnomyranks.commands.Warn;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
+import indrocraft.spigot.ecnomyranks.events.Inventories;
 import indrocraft.spigot.ecnomyranks.events.PlayerJoinLeave;
 import indrocraft.spigot.ecnomyranks.events.RankEvents;
+import indrocraft.spigot.ecnomyranks.inventories.InitAH;
 import indrocraft.spigot.ecnomyranks.ranks.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -55,7 +57,7 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginCommand("Dev").setExecutor(new Dev());
         getServer().getPluginCommand("Convert").setExecutor(new Converter());
         getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
-
+        getServer().getPluginCommand("auctionhouse").setExecutor(new AuctionHouse());
 
         //Commands Tab Autocomplete
         getCommand("SetRank").setTabCompleter(new SetRank(this));
@@ -63,7 +65,7 @@ public final class Main extends JavaPlugin implements Listener {
         //Events
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
         getServer().getPluginManager().registerEvents(new RankEvents(), this);
-
+        getServer().getPluginManager().registerEvents(new Inventories(), this);
 
         try {
             SQL.connect();
