@@ -25,4 +25,8 @@ commands:
     usage: /<command>
     description: the money system
     aliases: [eco, e]
+  auctionhouse:
+    usage: /<command>
+    description: the money system
+    aliases: "ah"
 
