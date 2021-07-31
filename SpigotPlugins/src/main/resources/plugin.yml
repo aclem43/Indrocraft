@@ -1,4 +1,32 @@
-name: Ecnomy Ranks
+name: EconomyRanks
 version: ${project.version}
 main: indrocraft.spigot.ecnomyranks.Main
 api-version: 1.17
+commands:
+  Complaints:
+    usage: /<command>
+    description: allows peeps to complain
+  Warn:
+    usage: /<command>
+    description: warns a player
+  SetRank:
+    usage: /<command>
+    description: Sets Players Rank
+
+  Dev:
+    usage: /<command>
+    description: Command Used For Devlopment and testing
+
+  Convert:
+    usage: /<command>
+    description: Use as a calculator to conver blocks into stacks and stacks into blocks \n Usage- /c type arg - arguments for type
+    alias: "c"
+  Economy:
+    usage: /<command>
+    description: the money system
+    aliases: [eco, e]
+  auctionhouse:
+    usage: /<command>
+    description: the money system
+    aliases: "ah"
+
