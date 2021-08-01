@@ -22,7 +22,7 @@ public class InitAH implements InventoryHolder {
             inv.setItem(i,background);
         }
         inv.setItem(12,GuiUtils.createGuiItem(Material.DIAMOND,"Buy",1));
-        inv.setItem(12,GuiUtils.createGuiItem(Material.HOPPER,"Sell",1));
+        inv.setItem(14,GuiUtils.createGuiItem(Material.HOPPER,"Sell",1));
 
 
 
