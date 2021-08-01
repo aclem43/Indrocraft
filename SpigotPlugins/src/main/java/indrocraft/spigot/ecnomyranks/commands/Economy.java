@@ -27,8 +27,8 @@ public class Economy implements TabExecutor {
             Player player = (Player) sender;
             //if no arguments are given:
             if (args.length == 0) {
-                String ban = main.data.getString(player.getUniqueId(), "Bank");
-                String wal = main.data.getString(player.getUniqueId(), "Wallet");
+                String ban = main.data.getString(player.getUniqueId(), "Bank", "playerinfo");
+                String wal = main.data.getString(player.getUniqueId(), "Wallet", "playerinfo");
                 player.sendMessage("Your wallet has: " + ChatColor.GOLD + "$" + wal);
                 player.sendMessage("Your bank has: " + ChatColor.GOLD + "$" + ban);
                 sender.sendMessage(ChatColor.RED + "For more commands use /economy help");
@@ -47,16 +47,16 @@ public class Economy implements TabExecutor {
             }
             //dev command
             if ("add".equalsIgnoreCase(args[0])) {
-                main.data.setInt(player.getUniqueId(), 50, "Bank");
-                main.data.setInt(player.getUniqueId(), 0, "Wallet");
+                main.data.setInt(player.getUniqueId(), 50, "Bank", "playerinfo");
+                main.data.setInt(player.getUniqueId(), 0, "Wallet", "playerinfo");
             }
             //shows your current bank or wallet balance:
             if ("bank".equalsIgnoreCase(args[0])) {
-                String ban = main.data.getString(player.getUniqueId(), "bank");
+                String ban = main.data.getString(player.getUniqueId(), "bank", "playerinfo");
                 player.sendMessage("You current have: $" + ban + " in your bank account!");
             }
             if ("wal".equalsIgnoreCase(args[0]) || "wallet".equalsIgnoreCase(args[0])) {
-                String wal = main.data.getString(player.getUniqueId(), "wallet");
+                String wal = main.data.getString(player.getUniqueId(), "wallet", "playerinfo");
                 player.sendMessage("You currently have: $ " + wal + " in your wallet!");
             }
             //withdraws money to your wallet from bank:
@@ -66,15 +66,15 @@ public class Economy implements TabExecutor {
                     return true;
                 }
                 if (isNum(args[1])) {
-                    int ban = main.data.getInt(player.getUniqueId(), "bank");
-                    int wal = main.data.getInt(player.getUniqueId(), "Wallet");
+                    int ban = main.data.getInt(player.getUniqueId(), "bank", "playerinfo");
+                    int wal = main.data.getInt(player.getUniqueId(), "Wallet", "playerinfo");
                     int amount = (Integer.parseInt(args[1]));
                     if (amount > ban) {
                         player.sendMessage(ChatColor.RED + "You dont have enough money in your bank to do that!");
                         return true;
                     }
-                    main.data.setInt(player.getUniqueId(), wal + amount, "Wallet");
-                    main.data.setInt(player.getUniqueId(), ban - amount, "bank");
+                    main.data.setInt(player.getUniqueId(), wal + amount, "Wallet", "playerinfo");
+                    main.data.setInt(player.getUniqueId(), ban - amount, "bank", "playerinfo");
                     player.sendMessage(ChatColor.BLUE + "Successfully withdrew: " + amount + " wallet now at: " + (wal + amount));
                 } else {
                     player.sendMessage(ChatColor.RED + "You must put a number after 'withdraw'");
@@ -90,15 +90,15 @@ public class Economy implements TabExecutor {
                 }
                 //player.sendMessage(player.getWorld().toString());
                 if (isNum(args[1])) {
-                    int ban = main.data.getInt(player.getUniqueId(), "bank");
-                    int wal = main.data.getInt(player.getUniqueId(), "Wallet");
+                    int ban = main.data.getInt(player.getUniqueId(), "bank", "playerinfo");
+                    int wal = main.data.getInt(player.getUniqueId(), "Wallet", "playerinfo");
                     int amount = (Integer.parseInt(args[1]));
                     if (amount > wal) {
                         player.sendMessage(ChatColor.BLUE + "You do not have enough money in your wallet to do that!");
                         return true;
                     }
-                    main.data.setInt(player.getUniqueId(), wal - amount, "Wallet");
-                    main.data.setInt(player.getUniqueId(), ban + amount, "bank");
+                    main.data.setInt(player.getUniqueId(), wal - amount, "Wallet", "playerinfo");
+                    main.data.setInt(player.getUniqueId(), ban + amount, "bank", "playerinfo");
                     player.sendMessage(ChatColor.BLUE + "Successfully deposited: " + amount + " bank balance now at: " + (ban + amount));
                 } else {
                     player.sendMessage(ChatColor.RED + "You must put a number after 'deposit'");
@@ -107,7 +107,7 @@ public class Economy implements TabExecutor {
             }
 
             if ("pay".equalsIgnoreCase(args[0])) {
-                int wal = main.data.getInt(player.getUniqueId(), "Wallet");
+                int wal = main.data.getInt(player.getUniqueId(), "Wallet", "playerinfo");
                 if (args.length != 3) {
                     player.sendMessage(ChatColor.RED + "/economy pay <player name> <amount>");
                     return true;
@@ -131,9 +131,9 @@ public class Economy implements TabExecutor {
                     return true;
                 } else {
                     int amount = (Integer.parseInt(args[2]));
-                    int targetWal = main.data.getInt(target.getUniqueId(), "Wallet");
-                    main.data.setInt(player.getUniqueId(), wal-amount, "Wallet");
-                    main.data.setInt(target.getUniqueId(), targetWal+amount, "Wallet");
+                    int targetWal = main.data.getInt(target.getUniqueId(), "Wallet", "playerinfo");
+                    main.data.setInt(player.getUniqueId(), wal-amount, "Wallet", "playerinfo");
+                    main.data.setInt(target.getUniqueId(), targetWal+amount, "Wallet", "playerinfo");
                     player.sendMessage(ChatColor.BLUE + "Payed " + args[1] + ": " + ChatColor.GOLD + "$" + amount);
                     target.sendMessage(ChatColor.BLUE + player.getName() + "payed you " + args[1] + ": " + ChatColor.GOLD + "$" + amount);
                     return true;

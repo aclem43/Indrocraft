@@ -58,6 +58,7 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginCommand("Convert").setExecutor(new Converter());
         getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
         getServer().getPluginCommand("auctionhouse").setExecutor(new AuctionHouse());
+        getServer().getPluginCommand("home").setExecutor(new Home(this));
 
         //Commands Tab Autocomplete
         getCommand("SetRank").setTabCompleter(new SetRank(this));
@@ -76,11 +77,11 @@ public final class Main extends JavaPlugin implements Listener {
 
         if (SQL.isConnected()) {
             Bukkit.getLogger().info(ChatColor.BLUE + "Database is connected!");
-            data.createTable();
-
-
-
+            data.createTable("playerinfo");
         }
+
+        //creates tables for teleporting
+        data.createTable("tpinfo");
     }
 
 

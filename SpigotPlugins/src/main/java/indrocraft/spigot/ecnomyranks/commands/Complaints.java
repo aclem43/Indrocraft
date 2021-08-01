@@ -57,7 +57,7 @@ public class Complaints implements CommandExecutor {
             return true;
         }
 
-        main.data.setString(targ.getUniqueId(), main.data.getString(targ.getUniqueId(), "ComplaintMessage") + ", " +msg, "ComplaintMessage");
+        main.data.setString(targ.getUniqueId(), main.data.getString(targ.getUniqueId(), "ComplaintMessage", "playerinfo") + ", " +msg, "ComplaintMessage", "playerinfo");
         player.sendMessage(ChatColor.BLUE + "Message successfully sent!");
         return true;
     }

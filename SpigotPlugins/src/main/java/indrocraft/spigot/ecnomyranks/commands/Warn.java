@@ -40,7 +40,7 @@ public class Warn implements CommandExecutor {
             return true;
         }
         try {
-            main.data.createPlayer(target);
+            main.data.createPlayer(target, "playerinfo");
         } catch (NullPointerException e) {
             player.sendMessage(ChatColor.RED + "You need to input a players name!");
             return true;
@@ -48,7 +48,7 @@ public class Warn implements CommandExecutor {
 
         player.sendMessage("You have warned: " + args[0]);
         target.sendMessage(ChatColor.RED + "You have been warned! Watch it!");
-        main.data.setInt(target.getUniqueId(), main.data.getInt(target.getUniqueId(), "count") + 1, "count");
+        main.data.setInt(target.getUniqueId(), main.data.getInt(target.getUniqueId(), "count", "playerinfo") + 1, "count", "playerinfo");
         return true;
     }
 }

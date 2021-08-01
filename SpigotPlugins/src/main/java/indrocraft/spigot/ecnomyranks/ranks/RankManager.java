@@ -51,7 +51,7 @@ public class RankManager {
     public static void setRank(Player player, Rank rank, SQLgetter data) {
         player.setDisplayName(rank.getPrefix() + player.getName());
         player.setPlayerListName(rank.getPrefix() + player.getName());
-        data.setString(player.getUniqueId(), rank.getCode(), "Rank" );
+        data.setString(player.getUniqueId(), rank.getCode(), "Rank", "playerinfo");
         //main.data.getString(player.getUniqueId(),"Rank");
 
    }
@@ -59,7 +59,7 @@ public class RankManager {
 
 
     public static Rank getRank(Player player,SQLgetter data) {
-        String code = data.getString(player.getUniqueId(),"Rank");
+        String code = data.getString(player.getUniqueId(),"Rank", "playerinfo");
         Rank rank = codeGetRank(code);
         return  rank;
     }
