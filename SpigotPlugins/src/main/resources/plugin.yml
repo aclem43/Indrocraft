@@ -29,4 +29,9 @@ commands:
     usage: /<command>
     description: the money system
     aliases: "ah"
-
+  serverinfo:
+    usage: /<command>
+    description: gives info about the server
+    aliases: "info"
+  home:
+    usage: /<command>

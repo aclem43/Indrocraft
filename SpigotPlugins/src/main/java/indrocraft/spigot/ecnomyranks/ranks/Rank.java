@@ -3,12 +3,12 @@ package indrocraft.spigot.ecnomyranks.ranks;
 import org.bukkit.ChatColor;
 
 public enum Rank {
-    NONE(ChatColor.RED,   "GREMLIN","GRE"),
-    HERO(ChatColor.AQUA, "HERO","HER"),
-    DGOD(ChatColor.BLUE, "DEMIGOD","DGD"),
-    GOD(ChatColor.LIGHT_PURPLE,  "GOD","GOD"),
-    TITAN(ChatColor.GREEN,  "TITAN","TIT"),
-    DEV(ChatColor.BLACK,  "DEV","DEV"),
+    NONE(ChatColor.GRAY,   "GREMLIN","GRE"),
+    HERO(ChatColor.GREEN, "HERO","HER"),
+    DGOD(ChatColor.DARK_AQUA, "DEMIGOD","DGD"),
+    GOD(ChatColor.DARK_BLUE,  "GOD","GOD"),
+    TITAN(ChatColor.DARK_GREEN,  "TITAN","TIT"),
+    DEV(ChatColor.DARK_PURPLE,  "DEV","DEV"),
     DONOR(ChatColor.GOLD,  "$ DONOR $","DON");
 
     private final String prefix;
