@@ -59,6 +59,7 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
         getServer().getPluginCommand("auctionhouse").setExecutor(new AuctionHouse());
         getServer().getPluginCommand("home").setExecutor(new Home(this));
+        getServer().getPluginCommand("openinv").setExecutor(new OpenInv(this.data));
 
         //Commands Tab Autocomplete
         getCommand("SetRank").setTabCompleter(new SetRank(this));
@@ -82,6 +83,11 @@ public final class Main extends JavaPlugin implements Listener {
 
         //creates tables for teleporting
         data.createTable("tpinfo");
+
+        data.createTable("auctionhouse");
+        data.addcolumn("itemtype","VARCHAR(100)","auctionhouse");
+        data.addcolumn("cost","INT","auctionhouse");
+        data.addcolumn("amount","INT","auctionhouse");
     }
 
 

@@ -1,2 +1,5 @@
-package indrocraft.spigot.ecnomyranks.inventories;public class AuctionHouseDB {
+package indrocraft.spigot.ecnomyranks.inventories;
+
+public class AuctionHouseDB {
+
 }

@@ -35,3 +35,5 @@ commands:
     aliases: "info"
   home:
     usage: /<command>
+  openinv:
+    usage: /<command>
