@@ -23,14 +23,20 @@ public class Home implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Player player = (Player) sender;
+        player.sendMessage("work in progress");
+
+        /*
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            if (args.length == 0) {
+            if ("homes".equalsIgnoreCase(label)) {
+                String string = main.data.getString(player.getUniqueId(), "Homes", "playerinfo");
+                String[] list = string.split(" ");
+
+                player.sendMessage(list);
+            }else if (args.length == 0) {
                 player.sendMessage(ChatColor.RED + "Please put a home name after the command!");
             } else if ("sethome".equalsIgnoreCase(label)) {
-
-
-
                 World world = Bukkit.getWorld("CraftWorld{name=world}");
                 double x = player.getLocation().getX();
                 double y = player.getLocation().getY();
@@ -55,6 +61,11 @@ public class Home implements TabExecutor {
 
 
             } else if ("home".equalsIgnoreCase(label)){
+                String test = main.data.getString(player.getUniqueId(), "homeName", "tpinfo", player.getName() + args[0]);
+                if ("".equals(test)) {
+                    player.sendMessage(ChatColor.RED + "Please put a valid home name after '/home' use '/homes' to see your home!");
+                    return true;
+                }
 
                 World world = player.getWorld();
                 double x = main.data.getDouble(player.getUniqueId(), "x", "tpinfo", player.getName() + args[0]);
@@ -65,10 +76,12 @@ public class Home implements TabExecutor {
 
                 Location location = new Location(world, x, y, z, yaw, pitch);
                 player.teleport(location);
-
             }
         }
+
+         */
         return true;
+
     }
 
     @Override
