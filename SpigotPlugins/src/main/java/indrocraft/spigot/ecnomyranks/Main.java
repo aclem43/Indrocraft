@@ -67,7 +67,7 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("Home").setTabCompleter(new Home(this));
         //Events
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
-        getServer().getPluginManager().registerEvents(new RankEvents(), this);
+        getServer().getPluginManager().registerEvents(new RankEvents(data), this);
         getServer().getPluginManager().registerEvents(new Inventories(), this);
 
         try {

@@ -16,12 +16,11 @@ import java.util.Map;
 
 public class PlayerJoinLeave implements Listener {
 
-    private Map<Player, Rank> ranks;
+
     private SQLgetter data;
 
 
     public PlayerJoinLeave(Map<Player, Rank> ranks, SQLgetter data ) {
-        this.ranks = ranks;
         this.data = data;
     }
 
@@ -71,9 +70,8 @@ public class PlayerJoinLeave implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event){
         Player player = event.getPlayer();
-        Rank rank = RankManager.getRank(player,data);
+
         event.setQuitMessage(ChatColor.GREEN + "See you soon " + player.getName() + "!");
         // use rank to add to database
-        data.setString(player.getUniqueId(), rank.toString(), "Rank", "playerinfo");
     }
 }
