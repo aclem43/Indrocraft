@@ -63,6 +63,7 @@ public final class Main extends JavaPlugin implements Listener {
         //Commands Tab Autocomplete
         getCommand("SetRank").setTabCompleter(new SetRank(this));
         getCommand("Economy").setTabCompleter(new Economy(this));
+        getCommand("Home").setTabCompleter(new Home(this));
         //Events
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
         getServer().getPluginManager().registerEvents(new RankEvents(), this);
@@ -82,6 +83,14 @@ public final class Main extends JavaPlugin implements Listener {
 
         //creates tables for teleporting
         data.createTable("tpinfo");
+        data.addcolumn("homeName", "VARCHAR(200)", "tpinfo");
+        data.addcolumn("world", "VARCHAR(200)", "tpinfo");
+        data.addcolumn("x", "DOUBLE", "tpinfo");
+        data.addcolumn("y", "DOUBLE", "tpinfo");
+        data.addcolumn("z", "DOUBLE", "tpinfo");
+        data.addcolumn("pitch", "Float", "tpinfo");
+        data.addcolumn("yaw", "Float", "tpinfo");
+        data.addcolumn("Homes", "VARCHAR(255)", "playerinfo");
     }
 
 

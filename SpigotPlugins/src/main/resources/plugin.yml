@@ -35,3 +35,4 @@ commands:
     aliases: "info"
   home:
     usage: /<command>
+    aliases: [sethome]
