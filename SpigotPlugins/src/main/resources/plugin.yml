@@ -35,4 +35,9 @@ commands:
     aliases: "info"
   home:
     usage: /<command>
+<<<<<<< HEAD
     aliases: [sethome]
+=======
+  openinv:
+    usage: /<command>
+>>>>>>> 7d9ff7ae437639a0c8ca2d1f36da3b125eb00b76
