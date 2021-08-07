@@ -31,13 +31,15 @@ def getString(cnx,UserId, column,tablename):
     return data
 
 class indrocraft(commands.Cog):
-    """All Commands Related To Indrocraft"""
+    """
+    All Commands Related To Indrocraft
+    """
     
     def __init__(self, client):
         self.client = client
         self.cnx = mysql.connector.connect(user='Bot', password='M@F2j8iPlsTPiIzA',
                               host='indrocraft.hopto.org',
-                              database='indrocraft')
+                              database='indrocraft',port=3307)
 
 
 

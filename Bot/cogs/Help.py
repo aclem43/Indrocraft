@@ -15,6 +15,8 @@ You need to set three variables to make that cog run.
 Have a look at line 51 to 57
 """
 
+version = "0.7"
+
 
 async def send_embed(ctx, embed):
     """
@@ -52,7 +54,7 @@ class Help(commands.Cog):
 	
         # !SET THOSE VARIABLES TO MAKE THE COG FUNCTIONAL!
         prefix = "$"# ENTER YOUR PREFIX - loaded from config, as string or how ever you want!
-        version = "0.2" # enter version of your code
+        
         
         # setting owner name - if you don't wanna be mentioned remove line 49-60 and adjust help text (line 88) 
         owner = 574766527098912769	# ENTER YOU DISCORD-ID
