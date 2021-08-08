@@ -16,15 +16,17 @@ def getString(cnx,UserId, column,tablename):
     cursor.close()
     return data
 
-def setString(cnx,UserId, column,tablename,value):
+def setString(cnx,UserId, column,tablename,value,commit=True):
     
     cursor =  cnx.cursor()
        
+    Query  = (f"UPDATE {tablename} SET {column}='{value}' WHERE userid='{UserId}'")
     
-    Query  = (f"UPDATE {tablename} SET {column}={value} WHERE userid={UserId}")
-    cnx.commit()
     cursor.execute(Query)
     cursor.close()
+    if commit:
+        cnx.commit()
+    
 
 
 class economy(commands.Cog):
@@ -38,6 +40,24 @@ class economy(commands.Cog):
                               host='indrocraft.hopto.org',
                               database='discord',port=3307)
     
+        table = (
+        "CREATE TABLE `dailyinfo` ("
+        "  `userid` VARCHAR(100),"
+        "  `datetimelast` VARCHAR(100),"
+        " `streak` INT,"
+        "  PRIMARY KEY (`userid`)"
+        ")")
+        cursor = self.cnx.cursor()
+        try:
+            cursor.execute(table)
+            self.cnx.commit()
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                print("Table already exists. - Ignore")
+            else:
+                print(err.msg)
+
+        cursor.close()
     @commands.command(aliases = ["bal"])
     async def balance(self,ctx,target: discord.Member = None):
         "Gets Your Balance"
@@ -74,10 +94,9 @@ class economy(commands.Cog):
         
     @commands.command()
     async def withdraw(self,ctx,amount):
-        if target == None:
-            id = ctx.author.id
-        else:
-            id= target.id
+        "Withdraws Money From Bank"
+        id = ctx.author.id
+
         try:
             int(amount)
             bankmoney =getString(self.cnx,id,"bank","userinfo")
@@ -87,7 +106,9 @@ class economy(commands.Cog):
             else:
                 walletmoney =getString(self.cnx,id,"bank","userinfo")
                 walletmoney = int(walletmoney[0][0])
-                amount = walletmoney + int(amount)
+                walletmoney = int(walletmoney) + int(amount)
+                bankmoney = int(bankmoney) - int(amount)
+                setString(self.cnx,id,"bank","userinfo",bankmoney)
                 setString(self.cnx,id,"wallet","userinfo",amount)
                 await ctx.send("Success")
         except ValueError:
@@ -95,7 +116,7 @@ class economy(commands.Cog):
         
     @commands.command()
     async def deposit(self,ctx,amount):
-        
+        "Deposits Money Into Bank"
         
         id= ctx.author.id
         try:
@@ -107,16 +128,40 @@ class economy(commands.Cog):
             else:
                 bankmoney =getString(self.cnx,id,"bank","userinfo")
                 bankmoney = int(bankmoney[0][0])
-                amount = bankmoney + int(amount)
-                setString(self.cnx,id,"bank","userinfo",amount)
+                bankmoney = int(bankmoney) + int(amount)
+                walletmoney = int(walletmoney) - int(amount)
+                setString(self.cnx,id,"wallet","userinfo",walletmoney)
+                setString(self.cnx,id,"bank","userinfo",bankmoney)
                 await ctx.send("Success")
         except ValueError:
             await ctx.send("Error - Contact Dev")
         
+    @commands.command()
+    async def pay(self,ctx,amount,target: discord.Member = None):
+        "Sends User Money From Your Wallet"
+        if target == None or target.id == ctx.author.id:
+            return await ctx.send("Please Select A User To Send")
+        else:
+            walletmoney =getString(self.cnx,ctx.author.id,"wallet","userinfo")
+            walletmoney = int(walletmoney[0][0])
+            if walletmoney >= int(amount):
+                targetmoney = getString(self.cnx,target.id,"wallet","userinfo")
+                self.cnx.commit()
+                targetmoney = int(targetmoney[0][0]) + int(amount)
+                walletmoney =  walletmoney- int(amount)
+                setString(self.cnx,target.id,"wallet","userinfo",targetmoney,False)
+                setString(self.cnx,ctx.author.id,"wallet","userinfo",walletmoney,False)
+                self.cnx.commit()
+                await ctx.send("Transaction Complete")
+            else:
+                await ctx.send("Transaction Failed - Not Enough Money")
+    
+    @commands.command()
+    async def daily(self,ctx):
+        pass
 
 
 
         
 def setup(client):
     client.add_cog(economy(client))
-

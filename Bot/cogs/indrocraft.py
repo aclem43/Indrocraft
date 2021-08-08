@@ -45,7 +45,10 @@ class indrocraft(commands.Cog):
 
         print("Database Connected")
 
-
+    @commands.command()
+    async def rules(self,ctx):
+        """Returns Rules"""
+        ctx.send()
     
     @commands.command()
     async def verify(self,ctx):

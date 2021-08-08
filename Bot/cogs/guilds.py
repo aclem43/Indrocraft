@@ -59,7 +59,7 @@ class guilds(commands.Cog):
     
 
     @commands.command(aliases = ["createguild"])
-    async def createGuild(self,ctx,name=None):
+    async def createGuild(self,ctx,*,name=None):
         num = getString(self.cnx,ctx.author.id,"guildcreate","userinfo")
 
         num = int(num[0][0])
