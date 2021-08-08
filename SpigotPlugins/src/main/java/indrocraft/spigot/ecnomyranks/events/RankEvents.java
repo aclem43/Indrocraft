@@ -39,13 +39,13 @@ public class RankEvents implements Listener {
             }
             RankManager.setRank(player,Rank.TITAN,data);
 
-        }else if(key.getNamespace().equals(NamespacedKey.MINECRAFT) && key.getKey().equals("nether/summon_wither")) {
+        }else if(key.getNamespace().equals(NamespacedKey.MINECRAFT) && key.getKey().equals("end/kill_dragon")) {
             if (rank.getLevel()>2){
                 return;
             }
             RankManager.setRank(player,Rank.DGOD,data);
 
-        }else if(key.getNamespace().equals(NamespacedKey.MINECRAFT) && key.getKey().equals("end/kill_dragon")) {
+        }else if(key.getNamespace().equals(NamespacedKey.MINECRAFT) && key.getKey().equals("nether/summon_wither")) {
             if (rank.getLevel()>3){
                 return;
             }

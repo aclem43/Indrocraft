@@ -47,9 +47,9 @@ public final class Main extends JavaPlugin implements Listener {
         // Plugin startup logic
         config.options().copyDefaults(true);
         saveConfig();
+
         this.SQL = new MySQL();
         this.data = new SQLgetter(this);
-
 
         //Commands
         getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
@@ -65,7 +65,6 @@ public final class Main extends JavaPlugin implements Listener {
         //Commands Tab Autocomplete
         getCommand("SetRank").setTabCompleter(new SetRank(this));
         getCommand("Economy").setTabCompleter(new Economy(this));
-        getCommand("Home").setTabCompleter(new Home(this));
         //Events
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
         getServer().getPluginManager().registerEvents(new RankEvents(data), this);
@@ -84,25 +83,13 @@ public final class Main extends JavaPlugin implements Listener {
             data.createTable("playerinfo");
         }
 
-        //creates tables for teleporting
-        data.createTable("tpinfo");
-        data.addcolumn("homeName", "VARCHAR(200)", "tpinfo");
-        data.addcolumn("world", "VARCHAR(200)", "tpinfo");
-        data.addcolumn("x", "DOUBLE", "tpinfo");
-        data.addcolumn("y", "DOUBLE", "tpinfo");
-        data.addcolumn("z", "DOUBLE", "tpinfo");
-        data.addcolumn("pitch", "Float", "tpinfo");
-        data.addcolumn("yaw", "Float", "tpinfo");
-        data.addcolumn("Homes", "VARCHAR(255)", "playerinfo");
-
         data.createTable("auctionhouse");
         data.addcolumn("itemtype","VARCHAR(100)","auctionhouse");
         data.addcolumn("cost","INT","auctionhouse");
         data.addcolumn("amount","INT","auctionhouse");
 
-
-
-
+        //databse+discord
+        data.createTable("discord");
     }
 
 

@@ -228,11 +228,11 @@ public class SQLgetter {
         return "";
     }
 
-    public String getString(UUID uuid, String column, String tableName, String target) {
+    public String getString(Player player, String column, String tableName, String nameIs) {
         try{
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " WHERE UUID=? AND homeName=?");
-            ps.setString(1, uuid.toString());
-            ps.setString(2, target);
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " WHERE UUID=? AND NAME=?");
+            ps.setString(1, player.getUniqueId().toString());
+            ps.setString(2, nameIs);
             ResultSet rs = ps.executeQuery();
             String info = "";
             if (rs.next()) {
@@ -256,10 +256,11 @@ public class SQLgetter {
         }
     }
 
-    public void remove(UUID uuid, String tableName) {
+    public void remove(UUID uuid, String tableName, String nameEquals) {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("DELETE FROM " + tableName + " WHERE UUID=?");
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("DELETE FROM " + tableName + " WHERE UUID=? AND NAME=?");
             ps.setString(1, uuid.toString());
+            ps.setString(2, nameEquals);
             ps.executeUpdate();
 
         } catch (SQLException e) {

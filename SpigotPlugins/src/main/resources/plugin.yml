@@ -36,6 +36,6 @@ commands:
     aliases: "info"
   home:
     usage: /<command>
-    aliases: [sethome, homes]
+    aliases: [sethome, homelist, delhome]
   openinv:
     usage: /<command>
