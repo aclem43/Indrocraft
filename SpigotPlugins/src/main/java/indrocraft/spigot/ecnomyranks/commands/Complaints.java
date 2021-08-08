@@ -23,7 +23,6 @@ public class Complaints implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        main.data.addcolumn("ComplaintMessage", "VARCHAR(255)");
         //checks if the console issued the command
         if (!(sender instanceof Player)) {
             main.getLogger().info("Must be a player to use this command!");
@@ -44,13 +43,13 @@ public class Complaints implements CommandExecutor {
         }
 
         if (msg == "") {
-            player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <PlayerName> <complaint>");
+            player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <TargetPlayer> <complaint>");
             return true;
         }
 
         Player targ = Bukkit.getPlayer(args[0]);
         if (!(targ instanceof Player)) {
-            player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <PlayerName> <complaint>");
+            player.sendMessage(ChatColor.RED + "Please make sure that your command is: /complaints <TargetPlayer> <complaint>");
             return true;
         }
         if (player == targ) {
@@ -58,7 +57,7 @@ public class Complaints implements CommandExecutor {
             return true;
         }
 
-        main.data.setString(targ.getUniqueId(), main.data.getString(targ.getUniqueId(), "ComplaintMessage") + ", " +msg, "ComplaintMessage");
+        main.data.setString(targ.getUniqueId(), main.data.getString(targ.getUniqueId(), "ComplaintMessage", "playerinfo") + ", [" + player.getName() + "] " + msg , "ComplaintMessage", "playerinfo");
         player.sendMessage(ChatColor.BLUE + "Message successfully sent!");
         return true;
     }

@@ -23,7 +23,14 @@ public class Dev implements CommandExecutor {
             }
 
             if ("world".equalsIgnoreCase(args[0])) {
-                player.sendMessage(player.getWorld().toString());
+                // Assign 99.95 to double variable billAmt
+                double billAmt = 99.95;
+                System.out.println("billAmt :"+ billAmt);
+                // Typecast billAmt
+                // to convert double billAmt value to int
+                // and assign it to int variable bill
+                int bill = (int) billAmt;
+                System.out.println(" Your generated bill amount is : $"+bill+". Thank You! ");
             }
         }
         return true;

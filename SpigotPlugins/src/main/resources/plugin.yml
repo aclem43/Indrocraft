@@ -21,6 +21,7 @@ commands:
     usage: /<command>
     description: Use as a calculator to conver blocks into stacks and stacks into blocks \n Usage- /c type arg - arguments for type
     alias: "c"
+
   Economy:
     usage: /<command>
     description: the money system
@@ -29,4 +30,12 @@ commands:
     usage: /<command>
     description: the money system
     aliases: "ah"
-
+  serverinfo:
+    usage: /<command>
+    description: gives info about the server
+    aliases: "info"
+  home:
+    usage: /<command>
+    aliases: [sethome, homelist, delhome]
+  openinv:
+    usage: /<command>
