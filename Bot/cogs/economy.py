@@ -1,3 +1,4 @@
+import datetime
 import discord
 from discord.ext import commands
 import mysql.connector
@@ -158,7 +159,9 @@ class economy(commands.Cog):
     
     @commands.command()
     async def daily(self,ctx):
-        pass
+        now = datetime.datetime.now()
+        date = now.strftime("[%m,%d]")
+        getString(self.cnx,ctx.author.id)
 
 
 
