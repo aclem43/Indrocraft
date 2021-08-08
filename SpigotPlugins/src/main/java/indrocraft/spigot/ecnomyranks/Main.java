@@ -8,6 +8,7 @@ import indrocraft.spigot.ecnomyranks.commands.SetRank;
 import indrocraft.spigot.ecnomyranks.commands.Warn;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
+import indrocraft.spigot.ecnomyranks.events.ChatMessage;
 import indrocraft.spigot.ecnomyranks.events.Inventories;
 import indrocraft.spigot.ecnomyranks.events.PlayerJoinLeave;
 import indrocraft.spigot.ecnomyranks.events.RankEvents;
@@ -68,6 +69,7 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
         getServer().getPluginManager().registerEvents(new RankEvents(data), this);
         getServer().getPluginManager().registerEvents(new Inventories(), this);
+        getServer().getPluginManager().registerEvents(new ChatMessage(), this);
 
         try {
             SQL.connect();

@@ -30,8 +30,6 @@ public class FileManager {
             myReader.close();
             return output;
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
             return "An error occurred.";
         }
     }

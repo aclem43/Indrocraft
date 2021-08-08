@@ -82,7 +82,7 @@ public class PlayerJoinLeave implements Listener {
             data.setInt(player.getUniqueId(), 0, "count", "playerinfo");
         }
         if (complaint == null) {
-            data.setString(player.getUniqueId(), "", "ComplaintMessage", "playerinfo");
+            data.setString(player.getUniqueId(), "",    "ComplaintMessage", "playerinfo");
         }
         if (homeList == null) {
             data.setString(player.getUniqueId(), " ", "homeList", "playerinfo");
