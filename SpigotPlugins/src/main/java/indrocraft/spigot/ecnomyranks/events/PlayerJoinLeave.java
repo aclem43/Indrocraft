@@ -35,7 +35,7 @@ public class PlayerJoinLeave implements Listener {
 //                "\n" + ChatColor.GREEN + "Join the conversation on our discord server:\n" + ChatColor.BLUE + ChatColor.UNDERLINE + "https://discord.gg/XdKgd7mbHJ");
         //fills in the database with required columns
         data.createPlayer(player, "playerinfo");// ADD gremlin Rank to player
-        //data.createTable("tpinfo " + player.getUniqueId().toString());
+        data.setString(player.getUniqueId(), player.getName(), "NAME", "playerinfo");
 
         //adds columns for the player info table
         data.addcolumn("Rank", "VARCHAR(100)", "playerinfo");
@@ -91,6 +91,12 @@ public class PlayerJoinLeave implements Listener {
             data.setInt(player.getUniqueId(), 0, "homeNum", "playerinfo");
         }
         RankManager.LoadRank(player,data);
+
+        //databse+discord
+        data.createTable("unverified");
+        data.createPlayer(player, "unverified");
+
+        data.createTable("discord");
 
     }
 

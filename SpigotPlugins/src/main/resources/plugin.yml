@@ -39,3 +39,6 @@ commands:
     aliases: [sethome, homelist, delhome]
   openinv:
     usage: /<command>
+  verify:
+    usage: /<command>
+    description: verifyies the user with their discord account

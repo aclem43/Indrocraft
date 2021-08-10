@@ -39,6 +39,16 @@ public class RankManager {
             return GOD;
         }else if (code.equals("TIT")){
             return TITAN;
+        }else if (code.equals("GR$")){
+            return NONEX;
+        }else if (code.equals("HE$")){
+            return HEROX;
+        }else if (code.equals("DG$")){
+            return DGODX;
+        }else if (code.equals("GO$")){
+            return GODX;
+        }else if (code.equals("TI$")){
+            return TITANX;
         }else if (code.equals("DEV")){
             return DEV;
         }else if (code.equals("DON")){

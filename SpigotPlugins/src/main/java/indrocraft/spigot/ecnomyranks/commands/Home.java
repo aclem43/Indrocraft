@@ -36,7 +36,10 @@ public class Home implements CommandExecutor {
             int getNumOfHomes = main.data.getInt(player.getUniqueId(), "homeNum", "playerinfo");
             int numOfHomes = 0;
             int playerLevel = pRank.getLevel();
-            if (playerLevel == 0) {
+            String status = pRank.getStatus();
+            if ("$".equalsIgnoreCase(status)) {
+                numOfHomes = 5;
+            } else if (playerLevel == 0) {
                 numOfHomes = 1;
             } else if (playerLevel == 1) {
                 numOfHomes = 2;

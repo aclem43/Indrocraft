@@ -42,6 +42,21 @@ public class SetRank implements TabExecutor {
             }else if("TITAN".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.TITAN;
                 RankManager.setRank(getPlayer(args[0]),rank,main.data);
+            }else if("GREMLIN_$".equalsIgnoreCase(args[1])){
+                Rank rank = Rank.NONEX;
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
+            }else if("HERO_$".equalsIgnoreCase(args[1])){
+                Rank rank = Rank.HEROX;
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
+            }else if("DGOD_$".equalsIgnoreCase(args[1])){
+                Rank rank = Rank.DGODX;
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
+            }else if("GOD_$".equalsIgnoreCase(args[1])){
+                Rank rank = Rank.GODX;
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
+            }else if("TITAN_$".equalsIgnoreCase(args[1])){
+                Rank rank = Rank.TITANX;
+                RankManager.setRank(getPlayer(args[0]),rank,main.data);
             }else if("DEV".equalsIgnoreCase(args[1])){
                 Rank rank = Rank.DEV;
                 RankManager.setRank(getPlayer(args[0]),rank,main.data);
@@ -65,6 +80,11 @@ public class SetRank implements TabExecutor {
             arg1.add("DGOD");
             arg1.add("GOD");
             arg1.add("TITAN");
+            arg1.add("GREMLIN_$");
+            arg1.add("HERO_$");
+            arg1.add("DGOD_$");
+            arg1.add("GOD_$");
+            arg1.add("TITAN_$");
             arg1.add("DEV");
             arg1.add("DONOR");
             return arg1;

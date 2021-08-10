@@ -104,6 +104,18 @@ public class SQLgetter {
         }
     }
 
+    public void setAnyString(String identifier, String value, String column, String string, String tableName) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + column +"=? WHERE ?=?");
+            ps.setString(1, string);
+            ps.setString(2, identifier);
+            ps.setString(3, value);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setString(UUID uuid, String string, String columnName, String tableName) {
         try {
             PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + columnName +"=? WHERE UUID=?");
@@ -210,6 +222,23 @@ public class SQLgetter {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public String getAnyString(String identifier, String value, String column, String tableName) {
+        try{
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " WHERE ?=?");
+            ps.setString(1, identifier);
+            ps.setString(2, value);
+            ResultSet rs = ps.executeQuery();
+            String info = "";
+            if (rs.next()) {
+                info = rs.getString(column);
+                return info;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public String getString(UUID uuid, String column, String tableName) {
