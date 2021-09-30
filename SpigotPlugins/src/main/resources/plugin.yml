@@ -26,10 +26,6 @@ commands:
     usage: /<command>
     description: the money system
     aliases: [eco, e]
-  auctionhouse:
-    usage: /<command>
-    description: the money system
-    aliases: "ah"
   serverinfo:
     usage: /<command>
     description: gives info about the server

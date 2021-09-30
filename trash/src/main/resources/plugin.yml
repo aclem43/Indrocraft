@@ -1,4 +1,0 @@
-name: Trash.trash
-version: ${project.version}
-main: trash.trash.trash.Trash.trash
-api-version: 1.17

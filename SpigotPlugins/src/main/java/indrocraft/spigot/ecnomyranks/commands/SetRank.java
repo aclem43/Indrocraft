@@ -1,19 +1,18 @@
 package indrocraft.spigot.ecnomyranks.commands;
 
 import indrocraft.spigot.ecnomyranks.Main;
-import indrocraft.spigot.ecnomyranks.ranks.Rank;
-import indrocraft.spigot.ecnomyranks.ranks.RankManager;
+import indrocraft.spigot.ecnomyranks.databasemanager.Databasemanager;
+import indrocraft.spigot.ecnomyranks.ranks.RankUtils;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bukkit.Bukkit.getPlayer;
+import org.bukkit.Bukkit;
 
 public class SetRank implements TabExecutor {
 
@@ -26,45 +25,11 @@ public class SetRank implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // arg 0 = Target i.e Aclem43, arg 1 = rank,main.data name i.e Hero  -
-        if (sender.isOp()){
-            if("GREMLIN".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.NONE;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("HERO".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.HERO;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("DGOD".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.DGOD;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("GOD".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.GOD;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("TITAN".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.TITAN;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("GREMLIN_$".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.NONEX;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("HERO_$".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.HEROX;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("DGOD_$".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.DGODX;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("GOD_$".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.GODX;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("TITAN_$".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.TITANX;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("DEV".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.DEV;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }else if("DONOR".equalsIgnoreCase(args[1])){
-                Rank rank = Rank.DONOR;
-                RankManager.setRank(getPlayer(args[0]),rank,main.data);
-            }
+        Player target = Bukkit.getPlayer(args[0]);
 
+        if (sender.isOp()){
+            RankUtils.setRank(target, main.data, args[1]);
+            RankUtils.LoadRank(target, main.data);
         }
 
         return true;
@@ -75,18 +40,9 @@ public class SetRank implements TabExecutor {
     public List<String> onTabComplete(CommandSender sender,Command command,String alias,String[] args) {
         if(args.length == 2){
             List<String> arg1 = new ArrayList<>();
-            arg1.add("GREMLIN");
-            arg1.add("HERO");
-            arg1.add("DGOD");
-            arg1.add("GOD");
-            arg1.add("TITAN");
-            arg1.add("GREMLIN_$");
-            arg1.add("HERO_$");
-            arg1.add("DGOD_$");
-            arg1.add("GOD_$");
-            arg1.add("TITAN_$");
-            arg1.add("DEV");
-            arg1.add("DONOR");
+            FileConfiguration config = Databasemanager.getFileConfig("config.yml");
+            for(String ranks : config.getConfigurationSection("ranks").getKeys(false))
+                arg1.add(ranks);
             return arg1;
         }
 

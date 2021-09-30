@@ -1,0 +1,57 @@
+# ranks to use this feature ranks should be structured like this:
+# ranks:
+# <name of rank for database>:
+#     - <rank display name>
+#     - <primary colour>
+#     - <secondary colour>
+#     - <name colour leave as 'null' for white>
+#     - <rank level for other features admin should be lowest>
+
+useRanks: true
+ranks:
+  none:
+    - noRank
+    - GREY
+    - GREY
+    - gold
+    - 0
+  1:
+    - ADMIN
+    - LIGHT_PURPLE
+    - DARK_PURPLE
+    - 1
+  2:
+    - DONATOR
+    - YELLOW
+    - GOLD
+    - 2
+  3:
+    - rankname
+    - GREY
+    - GREY
+    - 3
+  4:
+    - rankname
+    - GREY
+    - GREY
+    - 3
+  5:
+    - rankname
+    - GREY
+    - GREY
+    - 3
+  6:
+    - rankname
+    - GREY
+    - GREY
+    - 3
+  7:
+    - rankname
+    - GREY
+    - GREY
+    - 3
+  8:
+    - rankname
+    - GREY
+    - GREY
+    - 3

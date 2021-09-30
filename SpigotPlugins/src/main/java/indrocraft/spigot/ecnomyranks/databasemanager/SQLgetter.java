@@ -75,6 +75,21 @@ public class SQLgetter {
         }
     }
 
+    public void customRow(int rowName, String tableName){
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT * FROM " + tableName);
+            ResultSet results = ps.executeQuery();
+            results.next();
+            PreparedStatement ps2 = plugin.SQL.getConnection().prepareStatement("INSERT IGNORE INTO " + tableName + " (NAME) VALUE (?)");
+            ps2.setInt(1, rowName);
+            ps2.executeUpdate();
+
+            return;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean exists(UUID uuid, String tableName) {
         try {
             PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT * FROM " + tableName + " WHERE UUID=?");
@@ -90,30 +105,6 @@ public class SQLgetter {
             e.printStackTrace();
         }
         return false;
-    }
-
-    public void addInt(UUID uuid, int amount, String columnName, String tableName) {
-        try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + columnName +"=? WHERE UUID=?");
-            ps.setInt(1, (getInt(uuid, columnName, tableName) + amount));
-            ps.setString(2, uuid.toString());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-        }
-    }
-
-    public void setAnyString(String identifier, String value, String column, String string, String tableName) {
-        try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + column +"=? WHERE ?=?");
-            ps.setString(1, string);
-            ps.setString(2, identifier);
-            ps.setString(3, value);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setString(UUID uuid, String string, String columnName, String tableName) {
@@ -139,11 +130,45 @@ public class SQLgetter {
         }
     }
 
+    public void setAnyString(String string, String columnName, String tableName, String targetColumn, int targetIs) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + columnName +"=? WHERE " + targetColumn + "=?");
+            ps.setString(1, string);
+            ps.setInt(2, targetIs);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setAnyInt(int number, String columnName, String tableName, String targetColumn, int targetIs) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + columnName +"=? WHERE " + targetColumn + "=?");
+            ps.setInt(1, number);
+            ps.setInt(2, targetIs);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setInt(UUID uuid, int amount, String columnName, String tableName) {
         try {
             PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + columnName +"=? WHERE UUID=?");
             ps.setInt(1, amount);
             ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setInt(UUID uuid, int amount, String columnName, String tableName, String target) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("UPDATE " + tableName + " SET " + columnName +"=? WHERE UUID=? AND NAME=?");
+            ps.setInt(1, amount);
+            ps.setString(2, uuid.toString());
+            ps.setString(3, target);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -224,21 +249,19 @@ public class SQLgetter {
         return 0;
     }
 
-    public String getAnyString(String identifier, String value, String column, String tableName) {
+    public int getRecent(String column, String tableName, String idFeild) {
         try{
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " WHERE ?=?");
-            ps.setString(1, identifier);
-            ps.setString(2, value);
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " ORDER BY " + idFeild + " DESC LIMIT 0,1");
             ResultSet rs = ps.executeQuery();
-            String info = "";
+            int info = 0;
             if (rs.next()) {
-                info = rs.getString(column);
+                info = rs.getInt(column);
                 return info;
             }
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return "";
+        return 0;
     }
 
     public String getString(UUID uuid, String column, String tableName) {
@@ -274,6 +297,38 @@ public class SQLgetter {
         return "";
     }
 
+    public String getAnyString(String column, String tableName, String targetColumn, int targetIs) {
+        try{
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " WHERE " + targetColumn + "=?");
+            ps.setInt(1, targetIs);
+            ResultSet rs = ps.executeQuery();
+            String info = "";
+            if (rs.next()) {
+                info = rs.getString(column);
+                return info;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public int getAnyInt(String column, String tableName, String targetColumn, int targetIs) {
+        try{
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("SELECT " + column + " FROM " + tableName + " WHERE " + targetColumn + "=?");
+            ps.setInt(1, targetIs);
+            ResultSet rs = ps.executeQuery();
+            int info = 0;
+            if (rs.next()) {
+                info = rs.getInt(column);
+                return info;
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     // DELETE STUFF
     public void emptyTable(String tableName) {
         try {
@@ -285,11 +340,21 @@ public class SQLgetter {
         }
     }
 
-    public void remove(UUID uuid, String tableName, String nameEquals) {
+    public void remove(String tableName, String nameEquals) {
         try {
-            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("DELETE FROM " + tableName + " WHERE UUID=? AND NAME=?");
-            ps.setString(1, uuid.toString());
-            ps.setString(2, nameEquals);
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("DELETE FROM " + tableName + " WHERE NAME=?");
+            ps.setString(1, nameEquals);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //alter data type
+    public void setDataType(String column, String dataType, String tableName) {
+        try {
+            PreparedStatement ps = plugin.SQL.getConnection().prepareStatement("ALTER TABLE " + tableName + " MODIFY " + column + " " + dataType);
             ps.executeUpdate();
 
         } catch (SQLException e) {

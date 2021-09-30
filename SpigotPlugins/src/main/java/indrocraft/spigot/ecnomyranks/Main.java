@@ -9,7 +9,6 @@ import indrocraft.spigot.ecnomyranks.commands.Warn;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import indrocraft.spigot.ecnomyranks.events.*;
-import indrocraft.spigot.ecnomyranks.ranks.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,13 +27,6 @@ public final class Main extends JavaPlugin implements Listener {
     public MySQL SQL;
     public SQLgetter data;
 
-    public Map<Player, Rank> ranks;
-
-
-    public Main() {
-        Map<Player, Rank> ranks = new HashMap<>();
-    }
-
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -48,11 +40,10 @@ public final class Main extends JavaPlugin implements Listener {
         getServer().getPluginCommand("Complaints").setExecutor(new Complaints(this));
         getServer().getPluginCommand("Warn").setExecutor(new Warn(this));
         getServer().getPluginCommand("SetRank").setExecutor(new SetRank(this));
-        getServer().getPluginCommand("Dev").setExecutor(new Dev());
+        getServer().getPluginCommand("Dev").setExecutor(new Dev(this));
         getServer().getPluginCommand("Convert").setExecutor(new Converter());
         getServer().getPluginCommand("serverinfo").setExecutor(new ServerInfo());
         getServer().getPluginCommand("Economy").setExecutor(new Economy(this));
-        getServer().getPluginCommand("auctionhouse").setExecutor(new AuctionHouse());
         getServer().getPluginCommand("home").setExecutor(new Home(this));
         getServer().getPluginCommand("verify").setExecutor(new Verify(this));
         getServer().getPluginCommand("openinv").setExecutor(new OpenInv(this.data));
@@ -62,10 +53,8 @@ public final class Main extends JavaPlugin implements Listener {
         getCommand("Economy").setTabCompleter(new Economy(this));
 
         //Events
-        getServer().getPluginManager().registerEvents(new PlayerJoinLeave(ranks, data), this);
-        getServer().getPluginManager().registerEvents(new RankEvents(data), this);
-        getServer().getPluginManager().registerEvents(new ChatMessage(), this);
-        getServer().getPluginManager().registerEvents(new AuctionHouse(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinLeave(this), this);
+        getServer().getPluginManager().registerEvents(new RankEvents(this), this);
 
         try {
             SQL.connect();
@@ -78,11 +67,6 @@ public final class Main extends JavaPlugin implements Listener {
             Bukkit.getLogger().info(ChatColor.BLUE + "Database is connected!");
             data.createTable("playerinfo");
         }
-
-        data.createTable("auctionhouse");
-        data.addcolumn("itemtype","VARCHAR(100)","auctionhouse");
-        data.addcolumn("cost","INT","auctionhouse");
-        data.addcolumn("amount","INT","auctionhouse");
     }
 
 

@@ -1,12 +1,32 @@
+# server name
+# ranks to use this feature ranks should be structured like this:
+# ranks:
+# <name of rank for database>:
+#     - <rank display name>
+#     - <primary colour>
+#     - <secondary colour>
+#     - <name colour leave as 'null' for white>
+#     - <rank level for other features admin should be lowest>
+#     - <code for database>
+serverName: Our Server
+
+# teleport home using /home command
+homes: true
 databseForTP: world
-
-ranks:
-
 
 database:
   host: localhost # host of your database
   port: 3306 # default port for MariaDB and MySQL
-  database: db # name of your database. A database server can contain multiple databases
-  user: username
-  password: passy
+  database: indrocraft # name of your database. A database server can contain multiple databases
+  user: root
+# if database has no password leave the password as 'PasswordHere'
+  password: PasswordHere
 
+useRanks: true
+ranks:
+  none:
+    displayName: GREMLIN
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    level: 0
