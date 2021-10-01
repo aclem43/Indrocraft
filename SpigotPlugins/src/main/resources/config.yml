@@ -23,10 +23,18 @@ database:
   password: PasswordHere
 
 useRanks: true
+
+autoRankUp: true
+rankUpOrder:
+  - story/mine_diamond
+  - nether/obtain_ancient_debris
+  - end/kill_dragon
+  - end/respawn_dragon
+  - nether/summon_wither
+
 ranks:
-  none:
+  0:
     displayName: GREMLIN
     primaryColour: GRAY
     secondaryColour: DARK_GRAY
     nameColour: gold
-    level: 0
