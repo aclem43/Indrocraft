@@ -44,6 +44,10 @@ public class Dev implements CommandExecutor {
                 player.sendMessage(key);
                 return true;
             }
+            if ("level".equalsIgnoreCase(args[0])) {
+                Integer level = RankUtils.getLevel(player, main.data);
+                player.sendMessage(level.toString());
+            }
         }
         return true;
     }

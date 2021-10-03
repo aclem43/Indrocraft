@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
+import java.util.List;
+
 public class RankEvents implements Listener {
     private Main main;
     public RankEvents(Main main) {this.main = main;}
@@ -18,15 +20,35 @@ public class RankEvents implements Listener {
     @EventHandler
     public void advancementDoneEvent(PlayerAdvancementDoneEvent event) {
         FileConfiguration config = Databasemanager.getFileConfig("config.yml");
+        Player player = event.getPlayer();
         if (config.getBoolean("autoRankUp")) {
-            Player player = event.getPlayer();
             NamespacedKey key = event.getAdvancement().getKey();
-            int level = RankUtils.getLevel(player, main.data);
-            String advancement = config.getString("0.achievement");
-            if (advancement.equalsIgnoreCase(key.getKey())) {
-                RankUtils.setRank(player, main.data, config.getString("0.nextRank"));
+            Integer level = RankUtils.getLevel(player, main.data);
+            List<String> rankUpOrder = config.getStringList("rankUpOrder");
+            if (key.getNamespace().equals(NamespacedKey.MINECRAFT)) {
+                if (rankUpOrder.contains(key.getKey())) {
+                    Integer advancement = rankUpOrder.indexOf(key.getKey());
+                    if (key.getKey().equals(rankUpOrder.get(advancement))) {
+                        if (level < advancement + 1) {
+                            level++;
+                            Integer numberOfAdvancements = config.getInt("ranks." + level + ".advancements");
+                            if (numberOfAdvancements == 1) {
+                                advancement++;
+                                RankUtils.levelUp(player, main.data, advancement.toString());
+                            } else {
+                                Integer current = RankUtils.getAdvancement(player, main.data, level.toString());
+                                current++;
+                                if (numberOfAdvancements == current) {
+                                    advancement++;
+                                    RankUtils.levelUp(player, main.data, advancement.toString());
+                                } else {
+                                    RankUtils.updateAdvancement(player, main.data, level.toString());
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            int getGod = main.data.getInt(player.getUniqueId(), "god", "playerinfo");
         }
     }
 }

@@ -7,22 +7,29 @@ import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class Home implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Home implements TabExecutor {
     private final Main main;
 
     public Home(Main main) {this.main = main;}
 
+    FileConfiguration config = Databasemanager.getFileConfig("config.yml");
+    public String databaseName = config.getString("databseForTP");
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ChatColor red = ChatColor.RED;
-        FileConfiguration config = Databasemanager.getFileConfig("config.yml");
         Boolean homeEnabled = config.getBoolean("homes");
 
         if (homeEnabled) {
-            String databaseName = config.getString("databseForTP");
 
             if (sender instanceof Player) {
                 Player player = (Player) sender;
@@ -153,5 +160,25 @@ public class Home implements CommandExecutor {
             player.sendMessage("Please enable homes in the config file");
         }
         return true;
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
+        if (strings.length == 1){
+            if (s.equalsIgnoreCase("home") || s.equalsIgnoreCase("delhome")) {
+                Player player = (Player) commandSender;
+                String rawHomes = main.data.getString(player.getUniqueId(), databaseName, "playerinfo");
+                String[] homes = rawHomes.split(" ");
+                List<String> arg1 = new ArrayList<>();
+                int len = homes.length - 1;
+                while (len > 0) {
+                    arg1.add(homes[len]);
+                    len--;
+                }
+                return arg1;
+            }
+        }
+        return null;
     }
 }

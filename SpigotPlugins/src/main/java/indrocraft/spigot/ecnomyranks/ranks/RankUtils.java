@@ -15,6 +15,26 @@ public class RankUtils {
         data.setString(player.getUniqueId(), newRank, "Rank", "playerinfo");
     }
 
+    public static void levelUp(Player player, SQLgetter data, String newRank) {
+        setRank(player, data, newRank);
+        LoadRank(player, data);
+    }
+
+    public static void updateAdvancement(Player player, SQLgetter data, String level) {
+        data.addcolumn("level" + level + "advances", "INT(10)", "playerinfo");
+        Integer test = data.getInt(player.getUniqueId(), "level" + level + "advances", "playerinfo");
+        if (test == null) {
+            data.setInt(player.getUniqueId(), 0, "level" + level + "advances", "playerinfo");
+        } else {
+            test++;
+            data.setInt(player.getUniqueId(), test, "level" + level + "advances", "playerinfo");
+        }
+    }
+
+    public static int getAdvancement(Player player, SQLgetter data, String level) {
+        return data.getInt(player.getUniqueId(), "level" + level + "advances", "playerinfo");
+    }
+
     public static void LoadRank(Player player, SQLgetter data) {
         String code = data.getString(player.getUniqueId(),"Rank", "playerinfo");
         String displayName = config.getString("ranks." + code + ".displayName");
@@ -27,7 +47,7 @@ public class RankUtils {
 
     public static int getLevel(Player player, SQLgetter data) {
         String code = data.getString(player.getUniqueId(),"Rank", "playerinfo");
-        int level = config.getInt("ranks." + code + ".level");
+        int level = Integer.parseInt(code);
         return level;
     }
 
