@@ -6,16 +6,21 @@ import indrocraft.spigot.ecnomyranks.commands.Complaints;
 import indrocraft.spigot.ecnomyranks.commands.Economy;
 import indrocraft.spigot.ecnomyranks.commands.SetRank;
 import indrocraft.spigot.ecnomyranks.commands.Warn;
+import indrocraft.spigot.ecnomyranks.databasemanager.Databasemanager;
 import indrocraft.spigot.ecnomyranks.databasemanager.MySQL;
 import indrocraft.spigot.ecnomyranks.databasemanager.SQLgetter;
 import indrocraft.spigot.ecnomyranks.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +32,27 @@ public final class Main extends JavaPlugin implements Listener {
     public MySQL SQL;
     public SQLgetter data;
 
+    public  File configf;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         config.options().copyDefaults(true);
         saveConfig();
+        // makes second config file:
+        configf = new File(getDataFolder(), "rank.yml");
+
+        if(!configf.exists()){
+            configf.getParentFile().mkdirs();
+            saveResource("rank.yml", false);
+        }
+        config = new YamlConfiguration();
+
+        try{
+            config.load(configf);
+        }catch (IOException | InvalidConfigurationException e){
+            e.printStackTrace();
+        }
 
         this.SQL = new MySQL();
         this.data = new SQLgetter(this);

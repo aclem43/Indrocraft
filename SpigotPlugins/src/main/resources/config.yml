@@ -1,14 +1,7 @@
 # server name
-# ranks to use this feature ranks should be structured like this:
-# ranks:
-# <name of rank for database>:
-#     - <rank display name>
-#     - <primary colour>
-#     - <secondary colour>
-#     - <name colour leave as 'null' for white>
-#     - <rank level for other features admin should be lowest>
-#     - <code for database>
 serverName: Our Server
+
+useEconomy: true
 
 # teleport home using /home command
 homes: true
@@ -21,21 +14,3 @@ database:
   user: root
 # if database has no password leave the password as 'PasswordHere'
   password: PasswordHere
-
-useRanks: true
-
-autoRankUp: true
-rankUpOrder:
-  - story/mine_diamond
-  - nether/obtain_ancient_debris
-  - end/kill_dragon
-  - end/respawn_dragon
-  - nether/summon_wither
-
-ranks:
-  0:
-    displayName: GREMLIN
-    primaryColour: GRAY
-    secondaryColour: DARK_GRAY
-    nameColour: gold
-    advancements: 1

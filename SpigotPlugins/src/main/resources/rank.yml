@@ -8,50 +8,49 @@
 #     - <rank level for other features admin should be lowest>
 
 useRanks: true
+
+autoRankUp: true
+rankUpOrder:
+  - story/mine_diamond
+  - nether/obtain_ancient_debris
+  - story/mine_stone
+  - adventure/throw_trident
+  - adventure/shoot_arrow
+
 ranks:
-  none:
-    - noRank
-    - GREY
-    - GREY
-    - gold
-    - 0
-  1:
-    - ADMIN
-    - LIGHT_PURPLE
-    - DARK_PURPLE
-    - 1
-  2:
-    - DONATOR
-    - YELLOW
-    - GOLD
-    - 2
-  3:
-    - rankname
-    - GREY
-    - GREY
-    - 3
-  4:
-    - rankname
-    - GREY
-    - GREY
-    - 3
-  5:
-    - rankname
-    - GREY
-    - GREY
-    - 3
-  6:
-    - rankname
-    - GREY
-    - GREY
-    - 3
-  7:
-    - rankname
-    - GREY
-    - GREY
-    - 3
-  8:
-    - rankname
-    - GREY
-    - GREY
-    - 3
+  '0':
+    displayName: GREMLIN
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    advancements: 1
+  '1':
+    displayName: HERO
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    advancements: 1
+  '2':
+    displayName: TITAN
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    advancements: 1
+  '3':
+    displayName: DEMIGOD
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    advancements: 1
+  '4':
+    displayName: GOD
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    advancements: 1
+  '5':
+    displayName: DEV
+    primaryColour: GRAY
+    secondaryColour: DARK_GRAY
+    nameColour: gold
+    advancements: 1

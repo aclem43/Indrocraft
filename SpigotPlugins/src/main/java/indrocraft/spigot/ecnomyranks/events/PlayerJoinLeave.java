@@ -37,7 +37,7 @@ public class PlayerJoinLeave implements Listener {
         main.data.addcolumn("Wallet", "INT(100)", "playerinfo");
         main.data.addcolumn("ComplaintMessage", "VARCHAR(255)", "playerinfo");
         main.data.addcolumn("Count", "INT(100)", "playerinfo");
-        main.data.addcolumn("god", "INT(100)", "playerinfo");
+        main.data.addcolumn("nameColour", "VARCHAR(255)", "playerinfo");
         //adds all the tp information and tables
 
         String databseName = config.getString("databseForTP");
@@ -63,7 +63,7 @@ public class PlayerJoinLeave implements Listener {
         String complaint = main.data.getString(player.getUniqueId(), "ComplaintMessage", "playerinfo");
         String homeList = main.data.getString(player.getUniqueId(), databseName, "playerinfo");
         String homesNum = main.data.getString(player.getUniqueId(), databseName + "num", "playerinfo");
-        String god = main.data.getString(player.getUniqueId(), "god", "playerinfo");
+        String nameColour = main.data.getString(player.getUniqueId(), "nameColour", "playerinfo");
         if (rank == null) {
             main.data.setString(player.getUniqueId(), "none", "Rank", "playerinfo");
         }
@@ -85,8 +85,8 @@ public class PlayerJoinLeave implements Listener {
         if (homesNum == null) {
             main.data.setInt(player.getUniqueId(), 0, databseName + "num", "playerinfo");
         }
-        if (god == null) {
-            main.data.setInt(player.getUniqueId(), 0, "god", "playerinfo");
+        if (nameColour == null) {
+            main.data.setString(player.getUniqueId(), "white", "nameColour", "playerinfo");
         }
         RankUtils.LoadRank(player, main.data);
 

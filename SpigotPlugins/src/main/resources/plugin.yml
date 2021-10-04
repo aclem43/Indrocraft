@@ -12,7 +12,7 @@ commands:
   SetRank:
     usage: /<command>
     description: Sets Players Rank
-
+    aliases: "namecolour"
   Dev:
     usage: /<command>
     description: Command Used For Devlopment and testing

@@ -9,10 +9,14 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class RankUtils {
-    public static FileConfiguration config = Databasemanager.getFileConfig("config.yml");
+    public static FileConfiguration config = Databasemanager.getFileConfig("rank.yml");
 
     public static void setRank(Player player, SQLgetter data, String newRank) {
         data.setString(player.getUniqueId(), newRank, "Rank", "playerinfo");
+    }
+
+    public static void setNameColour(Player player, SQLgetter data, String newColour) {
+        data.setString(player.getUniqueId(), newColour, "nameColour", "playerinfo");
     }
 
     public static void levelUp(Player player, SQLgetter data, String newRank) {
@@ -21,7 +25,7 @@ public class RankUtils {
     }
 
     public static void updateAdvancement(Player player, SQLgetter data, String level) {
-        data.addcolumn("level" + level + "advances", "INT(10)", "playerinfo");
+
         Integer test = data.getInt(player.getUniqueId(), "level" + level + "advances", "playerinfo");
         if (test == null) {
             data.setInt(player.getUniqueId(), 0, "level" + level + "advances", "playerinfo");
@@ -59,9 +63,9 @@ public class RankUtils {
         } else if (colourNum == 2) {
             color = config.getString("ranks." + code + ".secondaryColour");
         } else if (colourNum == 3) {
-            color = config.getString("ranks." + code + ".nameColour");
+            color = data.getString(player.getUniqueId(), "nameColour", "playerinfo");
         }
-        
+
         return readColour(color);
     }
     

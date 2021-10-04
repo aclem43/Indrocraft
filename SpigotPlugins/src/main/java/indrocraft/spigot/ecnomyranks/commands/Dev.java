@@ -39,7 +39,7 @@ public class Dev implements CommandExecutor {
                 RankUtils.LoadRank(player, main.data);
             }
             if ("list".equalsIgnoreCase(args[0])) {
-                FileConfiguration config = Databasemanager.getFileConfig("config.yml");
+                FileConfiguration config = Databasemanager.getFileConfig("rank.yml");
                 for(String key : config.getConfigurationSection("ranks").getKeys(false))
                 player.sendMessage(key);
                 return true;
